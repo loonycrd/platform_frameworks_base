@@ -4086,6 +4086,12 @@ public final class Settings {
         public static final String LOCK_CLOCK_FONTS = "lock_clock_fonts";
 
         /**
+         * Change fonts for the system lockscreen date
+         * @hide
+         */
+        public static final String LOCK_DATE_FONTS = "lock_date_fonts";
+
+        /**
          * Receive incoming SIP calls?
          * 0 = no
          * 1 = yes
