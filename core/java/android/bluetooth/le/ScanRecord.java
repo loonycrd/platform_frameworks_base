@@ -120,7 +120,7 @@ public final class ScanRecord {
      */
     @Nullable
     public byte[] getServiceData(ParcelUuid serviceDataUuid) {
-        if (serviceDataUuid == null) {
+        if (serviceDataUuid == null || mServiceData == null) {
             return null;
         }
         return mServiceData.get(serviceDataUuid);
