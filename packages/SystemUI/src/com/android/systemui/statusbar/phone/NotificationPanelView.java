@@ -417,6 +417,10 @@ public class NotificationPanelView extends PanelView implements
         }
     }
 
+    public void setLockscreenClockTheme(boolean useDarkTheme) {
+        mKeyguardStatusView.onThemeChanged(useDarkTheme);
+    }
+
     public void onThemeChanged() {
         mQsNavbarScrim.setBackground(getResources().getDrawable(R.drawable.qs_navbar_scrim));
 
@@ -2875,6 +2879,10 @@ public class NotificationPanelView extends PanelView implements
         if (mInterpolatedDarkAmount > 0) {
             positionClockAndNotifications();
         }
+    }
+
+    public void updateKeyguardStatusSettings() {
+        mKeyguardStatusView.updateAll();
     }
 
     public void setStatusAccessibilityImportance(int mode) {
