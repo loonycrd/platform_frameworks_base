@@ -126,4 +126,7 @@
 
     <!-- Whether device ignores the RSSNR signal implementation -->
     <bool name="config_ignoreRssnrSignalLevel">false</bool>
+
+     <!-- Component name for the activity that will be presenting the Oreo's Recents UI -->
+    <string name="config_recentsComponentNameOreo" translatable="false">com.android.systemui/.recents.RecentsActivity</string>
 </resources>
