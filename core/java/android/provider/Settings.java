@@ -4665,6 +4665,25 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
+         * @hide
+         */
+        public static final String BOTTOM_GESTURE_TRIGGER_TIMEOUT =
+                "bottom_gesture_navigation_trigger_timeout";
+        /** @hide */
+        private static final Validator BOTTOM_GESTURE_TRIGGER_TIMEOUT_VALIDATOR =
+                ANY_INTEGER_VALIDATOR;
+
+        /**
+         * @hide
+         */
+        public static final String BOTTOM_GESTURE_SWIPE_LIMIT =
+                "bottom_gesture_navigation_swipe_limit";
+        /** @hide */
+        private static final Validator BOTTOM_GESTURE_SWIPE_LIMIT_VALIDATOR =
+                ANY_INTEGER_VALIDATOR;
+
+
+        /**
          * Wheter to show network traffic indicator in statusbar
          * @hide
          */
@@ -4700,6 +4719,18 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
+         * Whether to allow one finger quick settings expansion on the right side of the statusbar.
+         * @hide
+         */
+        public static final String STATUS_BAR_QUICK_QS_PULLDOWN = "status_bar_quick_qs_pulldown";
+
+        /**
+         * Quick Settings Smart Pulldown
+         * @hide
+         */
+        public static final String QS_SMART_PULLDOWN = "qs_smart_pulldown";
+
+        /**
          * @hide
          */
         public static final String SCREENRECORD_QUALITY_MODE = "screenrecord_quality_mode";
@@ -4713,6 +4744,16 @@ public final class Settings {
          * @hide
          */
         public static final String FULL_GESTURE_NAVBAR_DT2S = "full_gesture_navbar_dt2s";
+
+        /**
+         * Disable expanding quick settings on secure lock screens
+         *
+         * @hide
+         */
+        public static final String LOCK_QS_DISABLED = "lockscreen_qs_disabled";
+
+        private static final Validator LOCK_QS_DISABLED_VALIDATOR =
+                BOOLEAN_VALIDATOR;
 
        /**
          * Whether to wake the display when plugging or unplugging the charger
@@ -4926,10 +4967,13 @@ public final class Settings {
             STATUSBAR_CLOCK_DATE_FORMAT,
             STATUS_BAR_BRIGHTNESS_CONTROL,
             VOLUME_KEYS_CONTROL_RING_TONE,
+            LOCK_QS_DISABLED,
             USE_OLD_MOBILETYPE,
             STATUSBAR_HIDE_NOTCH,
             NOTIFICATION_SOUND_VIB_SCREEN_ON,
             USE_BOTTOM_GESTURE_NAVIGATION,
+            BOTTOM_GESTURE_TRIGGER_TIMEOUT,
+            BOTTOM_GESTURE_SWIPE_LIMIT,
             BATTERY_LIGHT_ENABLED,
             BATTERY_LIGHT_ALLOW_ON_DND,
             BATTERY_LIGHT_LOW_BLINKING,
@@ -5073,6 +5117,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_STYLE);
             PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_FORMAT);
             PRIVATE_SETTINGS.add(STATUS_BAR_BRIGHTNESS_CONTROL);
+            PRIVATE_SETTINGS.add(LOCK_QS_DISABLED);
             PRIVATE_SETTINGS.add(SCREENSHOT_DEFAULT_MODE);
             PRIVATE_SETTINGS.add(SWAP_VOLUME_BUTTONS);
             PRIVATE_SETTINGS.add(VOLUME_KEYS_CONTROL_RING_TONE);
@@ -5082,6 +5127,8 @@ public final class Settings {
             PRIVATE_SETTINGS.add(SHOW_FOURG);
             PRIVATE_SETTINGS.add(MUTE_ANNOYING_NOTIFICATIONS_THRESHOLD);
             PRIVATE_SETTINGS.add(USE_BOTTOM_GESTURE_NAVIGATION);
+            PRIVATE_SETTINGS.add(BOTTOM_GESTURE_TRIGGER_TIMEOUT);
+            PRIVATE_SETTINGS.add(BOTTOM_GESTURE_SWIPE_LIMIT);
             PRIVATE_SETTINGS.add(NOTIFICATION_SOUND_VIB_SCREEN_ON);
             PRIVATE_SETTINGS.add(BATTERY_LIGHT_ENABLED);
             PRIVATE_SETTINGS.add(BATTERY_LIGHT_ALLOW_ON_DND);
@@ -5196,6 +5243,7 @@ public final class Settings {
             VALIDATORS.put(STATUSBAR_CLOCK_DATE_STYLE, STATUSBAR_CLOCK_DATE_STYLE_VALIDATOR);
             VALIDATORS.put(STATUSBAR_CLOCK_DATE_FORMAT, STATUSBAR_CLOCK_DATE_FORMAT_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_BRIGHTNESS_CONTROL, STATUS_BAR_BRIGHTNESS_CONTROL_VALIDATOR);
+            VALIDATORS.put(LOCK_QS_DISABLED, LOCK_QS_DISABLED_VALIDATOR);
             VALIDATORS.put(USE_OLD_MOBILETYPE, USE_OLD_MOBILETYPE_VALIDATOR);
             VALIDATORS.put(VOLUME_KEYS_CONTROL_RING_TONE,VOLUME_KEYS_CONTROL_RING_TONE_VALIDATOR);
             VALIDATORS.put(STATUSBAR_HIDE_NOTCH, STATUSBAR_HIDE_NOTCH_VALIDATOR);
@@ -5203,6 +5251,10 @@ public final class Settings {
             VALIDATORS.put(MUTE_ANNOYING_NOTIFICATIONS_THRESHOLD, MUTE_ANNOYING_NOTIFICATIONS_THRESHOLD_VALIDATOR);
             VALIDATORS.put(USE_BOTTOM_GESTURE_NAVIGATION,
                     USE_BOTTOM_GESTURE_NAVIGATION_VALIDATOR);
+            VALIDATORS.put(BOTTOM_GESTURE_TRIGGER_TIMEOUT,
+                    BOTTOM_GESTURE_TRIGGER_TIMEOUT_VALIDATOR);
+            VALIDATORS.put(BOTTOM_GESTURE_SWIPE_LIMIT,
+                    BOTTOM_GESTURE_SWIPE_LIMIT_VALIDATOR);
             VALIDATORS.put(NOTIFICATION_SOUND_VIB_SCREEN_ON, NOTIFICATION_SOUND_VIB_SCREEN_ON_VALIDATOR);
             VALIDATORS.put(BATTERY_LIGHT_ENABLED, BATTERY_LIGHT_ENABLED_VALIDATOR);
             VALIDATORS.put(BATTERY_LIGHT_ALLOW_ON_DND, BATTERY_LIGHT_ALLOW_ON_DND_VALIDATOR);
