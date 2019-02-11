@@ -442,11 +442,11 @@ public class KeyguardIndicationController {
                 batteryInfo = batteryInfo + (mChargingCurrent / 1000) + "mA";
             }
             if (mChargingVoltage > 0) {
-                batteryInfo = (batteryInfo == "" ? "" : batteryInfo + " · ") +
+                batteryInfo = (batteryInfo == "" ? "" : batteryInfo + " • ") +
                         String.format("%.1f", (mChargingVoltage / 1000 / 1000)) + "V";
             }
             if (mTemperature > 0) {
-                batteryInfo = (batteryInfo == "" ? "" : batteryInfo + " · ") +
+                batteryInfo = (batteryInfo == "" ? "" : batteryInfo + " • ") +
                         mTemperature / 10 + "°C";
             }
             if (batteryInfo != "") {
