@@ -605,6 +605,9 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
     private boolean mScreenOn;
     private boolean mKeyguardShowingMedia;
 
+    // LS visualizer on Ambient Display
+    private boolean mAmbientVisualizer;
+
     private BroadcastReceiver mWallpaperChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -869,10 +872,12 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
 
         IVrManager vrManager = IVrManager.Stub.asInterface(ServiceManager.getService(
                 Context.VR_SERVICE));
-        try {
-            vrManager.registerListener(mVrStateCallbacks);
-        } catch (RemoteException e) {
-            Slog.e(TAG, "Failed to register VR mode state listener: " + e);
+        if (vrManager != null) {
+            try {
+                vrManager.registerListener(mVrStateCallbacks);
+            } catch (RemoteException e) {
+                Slog.e(TAG, "Failed to register VR mode state listener: " + e);
+            }
         }
 
         IWallpaperManager wallpaperManager = IWallpaperManager.Stub.asInterface(
@@ -959,12 +964,25 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
                     mStatusBarView.setBar(this);
                     mStatusBarView.setPanel(mNotificationPanel);
                     mStatusBarView.setScrimController(mScrimController);
+
+                    // CollapsedStatusBarFragment re-inflated PhoneStatusBarView and both of
+                    // mStatusBarView.mExpanded and mStatusBarView.mBouncerShowing are false.
+                    // PhoneStatusBarView's new instance will set to be gone in
+                    // PanelBar.updateVisibility after calling mStatusBarView.setBouncerShowing
+                    // that will trigger PanelBar.updateVisibility. If there is a heads up showing,
+                    // it needs to notify PhoneStatusBarView's new instance to update the correct
+                    // status by calling mNotificationPanel.notifyBarPanelExpansionChanged().
+                    if (mHeadsUpManager.hasPinnedHeadsUp()) {
+                        mNotificationPanel.notifyBarPanelExpansionChanged();
+                    }
                     mStatusBarView.setBouncerShowing(mBouncerShowing);
                     if (oldStatusBarView != null) {
                         float fraction = oldStatusBarView.getExpansionFraction();
                         boolean expanded = oldStatusBarView.isExpanded();
                         mStatusBarView.panelExpansionChanged(fraction, expanded);
                     }
+
+                    HeadsUpAppearanceController oldController = mHeadsUpAppearanceController;
                     if (mHeadsUpAppearanceController != null) {
                         // This view is being recreated, let's destroy the old one
                         mHeadsUpAppearanceController.destroy();
@@ -972,6 +990,7 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
                     mHeadsUpAppearanceController = new HeadsUpAppearanceController(
                             mNotificationIconAreaController, mHeadsUpManager, mStatusBarWindow);
                     mStatusBarWindow.setStatusBarView(mStatusBarView);
+                    mHeadsUpAppearanceController.readFrom(oldController);
                     setAreThereNotifications();
                     checkBarModes();
                 }).getFragmentManager()
@@ -2039,7 +2058,7 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
         flagdbg.append(0 != ((state2 & StatusBarManager.DISABLE2_NOTIFICATION_SHADE))   ? 'N' : 'n');
         flagdbg.append(0 != ((diff2  & StatusBarManager.DISABLE2_NOTIFICATION_SHADE))   ? '!' : ' ');
         flagdbg.append('>');
-        Log.d(TAG, flagdbg.toString());
+        if (DEBUG) Log.d(TAG, flagdbg.toString());
 
         if ((diff1 & StatusBarManager.DISABLE_EXPAND) != 0) {
             if ((state1 & StatusBarManager.DISABLE_EXPAND) != 0) {
@@ -2338,6 +2357,11 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
         return ThemeAccentUtils.isUsingDarkTheme(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
     }
 
+    // Check for the blackaf system theme
+    public boolean isUsingBlackAFTheme() {
+        return ThemeAccentUtils.isUsingBlackAFTheme(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
+    }
+
     // Unloads the stock dark theme
     public void unloadStockDarkTheme() {
         ThemeAccentUtils.unloadStockDarkTheme(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
@@ -2401,6 +2425,10 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
         if (!isCollapsing()) {
             onClosingFinished();
         }
+    }
+
+    public boolean isHeadsUpShouldBeVisible() {
+        return mHeadsUpAppearanceController.shouldBeVisible();
     }
 
     /**
@@ -3202,6 +3230,7 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
             pw.println("    overlay manager not initialized!");
         } else {
             pw.println("    dark overlay on: " + isUsingDarkTheme());
+            pw.println("    blackaf overlay on: " + isUsingBlackAFTheme());
         }
         final boolean lightWpTheme = mContext.getThemeResId() == R.style.Theme_SystemUI_Light;
         pw.println("    light wallpaper theme: " + lightWpTheme);
@@ -4298,11 +4327,19 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
                 && (config.uiMode & Configuration.UI_MODE_NIGHT_MASK)
                     == Configuration.UI_MODE_NIGHT_YES;
         final boolean useDarkTheme = nightModeWantsDarkTheme;
+        boolean useBlackAFTheme = useDarkTheme && (Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.USE_BLACKAF_THEME, 0, UserHandle.USER_CURRENT) == 1);
         if (isUsingDarkTheme() != useDarkTheme) {
             mUiOffloadThread.submit(() -> {
                 unfuckBlackWhiteAccent();
                 ThemeAccentUtils.setLightDarkTheme(mOverlayManager, mLockscreenUserManager.getCurrentUserId(), useDarkTheme);
                 mNotificationPanel.setLockscreenClockTheme(useDarkTheme);
+            });
+        }
+        if (isUsingBlackAFTheme() != useBlackAFTheme) {
+            mUiOffloadThread.submit(() -> {
+                unfuckBlackWhiteAccent();
+                ThemeAccentUtils.setLightBlackAFTheme(mOverlayManager, mLockscreenUserManager.getCurrentUserId(), useBlackAFTheme);
             });
         }
 
@@ -5191,6 +5228,9 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
             mEntryManager.updateNotifications();
             updateDozingState();
             updateReportRejectedTouchVisibility();
+            if (mAmbientVisualizer && mDozing) {
+                mVisualizerView.setVisible(true);
+            }
         }
         Trace.endSection();
     }
@@ -5575,6 +5615,9 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
                     Settings.System.ACCENT_PICKER),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.Secure.AMBIENT_VISUALIZER_ENABLED),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.USE_OLD_MOBILETYPE),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
@@ -5591,6 +5634,9 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.LOCKSCREEN_CLOCK_SELECTION),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.USE_BLACKAF_THEME),
                     false, this, UserHandle.USER_ALL);
             update();
         }
@@ -5609,11 +5655,17 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
                    uri.equals(Settings.System.getUriFor(Settings.System.LOCKSCREEN_CLOCK_SELECTION))) {
                 updateKeyguardStatusSettings();
             } else if (uri.equals(Settings.Secure.getUriFor(
+                    Settings.Secure.AMBIENT_VISUALIZER_ENABLED))) {
+                setAmbientVis();
+            } else if (uri.equals(Settings.Secure.getUriFor(
                     Settings.Secure.FP_SWIPE_TO_DISMISS_NOTIFICATIONS))) {
                 setFpToDismissNotifications();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.FORCE_AMBIENT_FOR_MEDIA))) {
                 setForceAmbient();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.USE_BLACKAF_THEME))) {
+                updateTheme();
             }
         }
 
@@ -5626,6 +5678,7 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
             updateKeyguardStatusSettings();
             setFpToDismissNotifications();
             setForceAmbient();
+            updateTheme();
         }
     }
 
@@ -5654,6 +5707,12 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
             ((AmbientIndicationContainer)mAmbientIndicationContainer).setIndication(
                     mediaMetadata, notificationText, nowPlaying);
         }
+    }
+
+    private void setAmbientVis() {
+        mAmbientVisualizer = Settings.Secure.getIntForUser(
+                mContext.getContentResolver(), Settings.Secure.AMBIENT_VISUALIZER_ENABLED, 0,
+                UserHandle.USER_CURRENT) == 1;
     }
 
     private boolean isAmbientContainerAvailable() {

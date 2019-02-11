@@ -81,7 +81,7 @@
     <!-- Screenshot Delete Toast -->
     <string name="delete_screenshot_toast">تم حذف لقطة الشاشة</string>
     <!-- Ambient Display Pixel-Like string -->
-    <string name="ambientmusic_songinfo">%s by %s</string>
+    <string name="ambientmusic_songinfo">%s بـ %s</string>
     <!-- Sound QS Tile -->
     <string name="quick_settings_sound_label">الصوت</string>
     <string name="quick_settings_sound_ring">رنين</string>
@@ -189,7 +189,7 @@
     <!-- Screenshot QS tile -->
     <string name="quick_settings_screenrecord_label">تسجيل الشاشة</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
-    <string name="keyguard_indication_dash_charging_time">الشحن السريع (<xliff:g id="charging_time_left" example="4 ساعة و 2 دقيقة">%s</xliff:g> حتى الإمتلاء)</string>
+    <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • الشحن السريع (<xliff:g id="charging_time_left" example="٤ ساعات و ٢ دقيقة">%s</xliff:g> حتى الامتلاء)</string>
     <string name="keyguard_plugged_in_dash_charging">الشحن السريع</string>
     <!-- Smart Pixels QS Tile -->
     <string name="quick_settings_smart_pixels">الدقة الذكية</string>

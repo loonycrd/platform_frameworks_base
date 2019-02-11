@@ -81,7 +81,7 @@
     <!-- Screenshot Delete Toast -->
     <string name="delete_screenshot_toast">Snímek obrazovky smazán</string>
     <!-- Ambient Display Pixel-Like string -->
-    <string name="ambientmusic_songinfo">%s by %s</string>
+    <string name="ambientmusic_songinfo">%s od %s</string>
     <!-- Sound QS Tile -->
     <string name="quick_settings_sound_label">Zvuk</string>
     <string name="quick_settings_sound_ring">Vyzvánění</string>
@@ -189,7 +189,7 @@
     <!-- Screenshot QS tile -->
     <string name="quick_settings_screenrecord_label">Záznam obrazovky</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
-    <string name="keyguard_indication_dash_charging_time">DASH nabíjení (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> do plného nabití)</string>
+    <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • DASH nabíjení (zbývá <xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g>)</string>
     <string name="keyguard_plugged_in_dash_charging">DASH nabíjení</string>
     <!-- Smart Pixels QS Tile -->
     <string name="quick_settings_smart_pixels">Smart Pixels</string>

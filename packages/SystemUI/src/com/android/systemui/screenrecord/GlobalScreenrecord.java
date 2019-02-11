@@ -85,7 +85,7 @@ class GlobalScreenrecord {
     private static final int MSG_TASK_ERROR = 2;
 
     private static final String TMP_PATH = Environment.getExternalStorageDirectory()
-            + File.separator + "__tmp_screenrecord.mp4";
+            + File.separator + "._tmp_screenrecord.mp4";
 
     private static final String SCREENRECORD_SHARE_SUBJECT_TEMPLATE = "Screenrecord (%s)";
     private static final String SCREENRECORD_URI_ID = "android:screenrecord_uri_id";
@@ -111,6 +111,10 @@ class GlobalScreenrecord {
     private long mRecordingTotalTime = 0;
     private long mFileSize = 0;
 
+    private MediaScannerConnectionClient mClient;
+
+    private boolean mHigherAspectRatio;
+
     private void setFinisher(Runnable finisher) {
         mFinisher = finisher;
     }
@@ -118,9 +122,11 @@ class GlobalScreenrecord {
     private class CaptureThread extends Thread {
         private Runnable mFInisher;
         private int mMode;
+        private boolean mHigherAspectRatio;
 
-        public void setMode(int mode) {
+        public void setMode(int mode, boolean higherAspectRatio) {
             mMode = mode;
+            mHigherAspectRatio = higherAspectRatio;
         }
 
         public void run() {
@@ -134,21 +140,21 @@ class GlobalScreenrecord {
                 case WindowManager.SCREEN_RECORD_LOW_QUALITY:
                     // low resolution and 1.5Mbps
                     cmds[2] = "--size";
-                    cmds[3] = "480x800";
+                    cmds[3] = mHigherAspectRatio ? "480x960" : "480x800";
                     cmds[4] = "--bit-rate";
                     cmds[5] = "1500000";
                     break;
                 case WindowManager.SCREEN_RECORD_MID_QUALITY:
                     // default resolution (720p) and 4Mbps
                     cmds[2] = "--size";
-                    cmds[3] = "720x1280";
+                    cmds[3] = mHigherAspectRatio ? "720x1440" : "720x1280";
                     cmds[4] = "--bit-rate";
                     cmds[5] = "4000000";
                     break;
                 case WindowManager.SCREEN_RECORD_HIGH_QUALITY:
                     // default resolution (720p) and 8Mbps
                     cmds[2] = "--size";
-                    cmds[3] = "720x1280";
+                    cmds[3] = mHigherAspectRatio ? "720x1440" : "720x1280";
                     cmds[4] = "--bit-rate";
                     cmds[5] = "8000000";
                     break;
@@ -201,6 +207,8 @@ class GlobalScreenrecord {
      */
     public GlobalScreenrecord(Context context) {
         mContext = context;
+        mHigherAspectRatio = Resources.getSystem().getBoolean(
+                com.android.internal.R.bool.config_haveHigherAspectRatioScreen);
         mHandler = new Handler() {
             public void handleMessage(Message msg) {
                 if (msg.what == MSG_TASK_ENDED) {
@@ -219,6 +227,8 @@ class GlobalScreenrecord {
         mWindowManager =
                 (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        mClient = new MediaScanner(mContext);
     }
 
     public boolean isRecording() {
@@ -236,7 +246,7 @@ class GlobalScreenrecord {
 
         setFinisher(finisher);
         mCaptureThread = new CaptureThread();
-        mCaptureThread.setMode(mode);
+        mCaptureThread.setMode(mode, mHigherAspectRatio);
         mCaptureThread.start();
 
         showHint();
@@ -444,18 +454,17 @@ class GlobalScreenrecord {
 
             // Make it appear in gallery, run MediaScanner
             // also make sure to tell media scanner that the tmp file got deleted
-            MediaScannerConnectionClient client =
-                    new MediaScanner(mContext);
-            ((MediaScanner)client).connectAndScan(input.getAbsolutePath(), null);
-            ((MediaScanner)client).connectAndScan(output.getAbsolutePath(), date);
+            ((MediaScanner)mClient).connectAndScan(input.getAbsolutePath(), output.getAbsolutePath(), date);
         } }, 2000);
     }
 
     private final class MediaScanner implements MediaScannerConnectionClient {
 
-        private String mFileName;
+        private String mInputFileName;
+        private String mOutputFileName;
         private String mDate;
         private MediaScannerConnection mConnection;
+        private boolean isInputFile = false;
 
         public MediaScanner(Context ctx) {
             mConnection = new MediaScannerConnection(ctx, this);
@@ -463,21 +472,25 @@ class GlobalScreenrecord {
 
         @Override
         public void onMediaScannerConnected() {
-            mConnection.scanFile(mFileName, null);
+            isInputFile = true;
+            mConnection.scanFile(mInputFileName, null);
         }
 
         @Override
         public void onScanCompleted(String path, Uri uri) {
-            Log.i(TAG, "MediaScanner done scanning " + path);
-            if (mDate != null) {
-                showFinalNotification(uri, mDate);
+            if (isInputFile) {
+                isInputFile = false;
+                mConnection.scanFile(mOutputFileName, null);
+            } else {
+                if (mDate != null) showFinalNotification(uri, mDate);
+                // disconnect the service to avoid leaks
+                mConnection.disconnect();
             }
-            // disconnect the service to avoid leaks
-            mConnection.disconnect();
         }
 
-        public void connectAndScan(String fileName, String date) {
-            this.mFileName = fileName;
+        public void connectAndScan(String input, String output, String date) {
+            this.mInputFileName = input;
+            this.mOutputFileName = output;
             this.mDate = date;
             mConnection.connect();
         }
