@@ -24,6 +24,7 @@ import static com.android.systemui.OverviewProxyService.DEBUG_OVERVIEW_PROXY;
 import static com.android.systemui.OverviewProxyService.TAG_OPS;
 import static com.android.systemui.shared.system.NavigationBarCompat.HIT_TARGET_DEAD_ZONE;
 import static com.android.systemui.shared.system.NavigationBarCompat.HIT_TARGET_HOME;
+import static com.android.systemui.shared.system.NavigationBarCompat.HIT_TARGET_IME_BUTTON;
 import static com.android.systemui.shared.system.NavigationBarCompat.HIT_TARGET_ROTATION;
 
 import android.animation.Animator;
@@ -244,7 +245,8 @@ public class QuickStepController implements GestureHelper {
                 // if full gesture mode or dt2s are disabled  or if we tap on the home or rotation button
                 if (!mNavigationBarView.isFullGestureMode()
                         || mNavigationBarView.getDownHitTarget() == HIT_TARGET_HOME
-                        || mNavigationBarView.getDownHitTarget() == HIT_TARGET_ROTATION) {
+                        || mNavigationBarView.getDownHitTarget() == HIT_TARGET_ROTATION
+                        || mNavigationBarView.getDownHitTarget() == HIT_TARGET_IME_BUTTON) {
                         wasConsumed = true;
                         break;
                 }
@@ -267,7 +269,10 @@ public class QuickStepController implements GestureHelper {
                     int deltaX = (int) mPreviousUpEventX - (int) event.getX();
                     int deltaY = (int) mPreviousUpEventY - (int) event.getY();
                     boolean isDoubleTapReally = deltaX * deltaX + deltaY * deltaY < sDoubleTapSquare;
-                    if (isDoubleTapReally) aosipUtils.switchScreenOff(mContext);
+                    if (isDoubleTapReally) {
+                        mNavigationBarView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+                        aosipUtils.switchScreenOff(mContext);
+                    }
                 } else {
                     // this is the first tap, let's go further and schedule a
                     // mDoubleTapCancelTimeout call in the action up event so after the set time
@@ -398,6 +403,7 @@ public class QuickStepController implements GestureHelper {
                         aosipUtils.sendKeycode(KeyEvent.KEYCODE_BACK, mHandler);
                         endQuickScrub(true /* animate */);
                         mNavigationBarView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+                        aosipUtils.sendKeycode(KeyEvent.KEYCODE_BACK, mHandler);
                     } else {
                         endQuickScrub(true /* animate */);
                     }
@@ -424,6 +430,7 @@ public class QuickStepController implements GestureHelper {
             isDoubleTapPending = false;
             // it was a single tap, let's trigger the home button action
             mHandler.removeCallbacksAndMessages(null);
+            mNavigationBarView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
             aosipUtils.sendKeycode(KeyEvent.KEYCODE_HOME, mHandler);
         }
     };
@@ -439,6 +446,7 @@ public class QuickStepController implements GestureHelper {
 
         @Override
         public void run() {
+            mNavigationBarView.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
             moveKbCursor(isRight, true);
         }
     }
