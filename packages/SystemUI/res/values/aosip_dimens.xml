@@ -43,4 +43,8 @@
 
     <!-- Sets a custom extra padding for the QS icons and statusbar date -->
     <dimen name="qs_items_padding">8dp</dimen>
+
+    <!--VPN Footer -->
+    <dimen name="qs_footer_padding_top">7dp</dimen>
+    <dimen name="qs_footer_padding_bottom">7dp</dimen>
 </resources>
