@@ -101,9 +101,6 @@ public final class ScanRecord {
      */
     @Nullable
     public byte[] getManufacturerSpecificData(int manufacturerId) {
-        if (mManufacturerSpecificData == null) {
-            return null;
-        }
         return mManufacturerSpecificData.get(manufacturerId);
     }
 
@@ -120,7 +117,7 @@ public final class ScanRecord {
      */
     @Nullable
     public byte[] getServiceData(ParcelUuid serviceDataUuid) {
-        if (serviceDataUuid == null || mServiceData == null) {
+        if (serviceDataUuid == null) {
             return null;
         }
         return mServiceData.get(serviceDataUuid);
