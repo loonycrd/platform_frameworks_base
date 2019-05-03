@@ -17,7 +17,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- AOD QS tile -->
-    <string name="quick_settings_aod_label">AOD</string>
+    <string name="quick_settings_aod_label">Schermo sempre attivo</string>
     <!-- QS Colums & rows -->
     <string name="qs_menu_item_columns">Colonne verticali</string>
     <string name="qs_menu_item_columns_landscape">Colonne orizzontali</string>
@@ -80,10 +80,14 @@
     <string name="qs_lte_label">LTE</string>
     <string name="lte_on">LTE Attivato </string>
     <string name="lte_off">LTE Disattivato</string>
+    <!-- HW Keys Tile -->
+    <string name="accessibility_quick_settings_hwkeys_on">HW keys on</string>
+    <string name="accessibility_quick_settings_hwkeys_off">HW keys off</string>
+    <string name="quick_settings_hwkeys_label">HW keys</string>
     <!-- Screenshot Delete Toast -->
     <string name="delete_screenshot_toast">Screenshot eliminato</string>
     <!-- Ambient Display Pixel-Like string -->
-    <string name="ambientmusic_songinfo">%s by %s</string>
+    <string name="ambientmusic_songinfo">%s di %s</string>
     <!-- Sound QS Tile -->
     <string name="quick_settings_sound_label">Suono</string>
     <string name="quick_settings_sound_ring">Suona</string>
@@ -106,6 +110,10 @@
     <string name="global_action_restart_ui">SystemUI</string>
     <string name="global_action_restart_hot">Avvio rapido</string>
     <string name="global_action_screenshot">Screenshot</string>
+    <!-- Kill button in notification guts -->
+    <string name="force_stop_dlg_title">Forzare la chiusura?</string>
+    <string name="force_stop_dlg_text">Se forzi l\'interruzione, l\'app potrebbe funzionare in modo anomalo.</string>
+    <string name="guts_force_close_app">Chiudi l\'applicazione</string>
     <!-- Reboot/Recovery QS Tile -->
     <string name="quick_settings_reboot_label">Riavvio</string>
     <string name="quick_settings_reboot_recovery_label">Recovery</string>
@@ -191,7 +199,7 @@
     <!-- Screenshot QS tile -->
     <string name="quick_settings_screenrecord_label">Registra schermo</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
-    <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Dash Charging (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> until full)</string>
+    <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Dash charge (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> al completamento)</string>
     <string name="keyguard_plugged_in_dash_charging">Ricarica Dash</string>
     <!-- Smart Pixels QS Tile -->
     <string name="quick_settings_smart_pixels">Pixel Intelligenti</string>

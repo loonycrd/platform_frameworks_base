@@ -80,6 +80,10 @@
     <string name="qs_lte_label">LTE</string>
     <string name="lte_on">LTE AÇIK </string>
     <string name="lte_off">LTE KAPALI</string>
+    <!-- HW Keys Tile -->
+    <string name="accessibility_quick_settings_hwkeys_on">HW keys on</string>
+    <string name="accessibility_quick_settings_hwkeys_off">HW keys off</string>
+    <string name="quick_settings_hwkeys_label">HW keys</string>
     <!-- Screenshot Delete Toast -->
     <string name="delete_screenshot_toast">Ekran görüntüsü silindi</string>
     <!-- Ambient Display Pixel-Like string -->
@@ -106,6 +110,10 @@
     <string name="global_action_restart_ui">Arayüz</string>
     <string name="global_action_restart_hot">Hızlı</string>
     <string name="global_action_screenshot">Ekran görüntüsü</string>
+    <!-- Kill button in notification guts -->
+    <string name="force_stop_dlg_title">Zorla durdurulsun mu?</string>
+    <string name="force_stop_dlg_text">Uygulamayı zorla durdurursanız, hatalı davranabilir.</string>
+    <string name="guts_force_close_app">Uygulamayı kapat</string>
     <!-- Reboot/Recovery QS Tile -->
     <string name="quick_settings_reboot_label">Yeniden başlat</string>
     <string name="quick_settings_reboot_recovery_label">Kurtarma</string>

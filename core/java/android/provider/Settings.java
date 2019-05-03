@@ -899,6 +899,19 @@ public final class Settings {
 
     /**
      * @hide
+     * Activity Action: Show the "app ops" details screen.
+     * <p>
+     * Input: The Intent's data URI specifies the application package name
+     * to be shown, with the "package" scheme.  That is "package:com.my.app".
+     * <p>
+     * Output: Nothing.
+     */
+    @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
+    public static final String ACTION_APP_OPS_DETAILS_SETTINGS =
+            "android.settings.APP_OPS_DETAILS_SETTINGS";
+
+    /**
+     * @hide
      * Activity Action: Show the "app ops" settings screen.
      * <p>
      * Input: Nothing.
@@ -4449,7 +4462,7 @@ public final class Settings {
         public static final String LOCKSCREEN_CLOCK_SELECTION = "lockscreen_clock_selection";
         /** @hide */
         public static final Validator LOCKSCREEN_CLOCK_SELECTION_VALIDATOR =
-                new SettingsValidators.InclusiveIntegerRangeValidator(0, 4);
+                new SettingsValidators.InclusiveIntegerRangeValidator(0, 8);
 
         /**
          * Whether to hide the items underneath the lockscreen clock
@@ -4488,6 +4501,12 @@ public final class Settings {
         public static final String STATUSBAR_CLOCK_DATE_FORMAT = "statusbar_clock_date_format";
         /** @hide */
         public static final Validator STATUSBAR_CLOCK_DATE_FORMAT_VALIDATOR = ANY_STRING_VALIDATOR;
+
+        /**
+         * Apps to skip for Pulse
+         * @hide
+         */
+        public static final String PULSE_APPS_BLACKLIST = "pulse_apps_blacklist";
 
         /**
          * @hide
@@ -4558,14 +4577,6 @@ public final class Settings {
         public static final String TOAST_ICON = "toast_icon";
         /** @hide */
         private static final Validator TOAST_ICON_VALIDATOR =
-                BOOLEAN_VALIDATOR;
-
-        /**
-         * @hide
-         */
-        public static final String ROAMING_INDICATOR_ICON = "roaming_indicator_icon";
-        /** @hide */
-        private static final Validator ROAMING_INDICATOR_ICON_VALIDATOR =
                 BOOLEAN_VALIDATOR;
 
         /**
@@ -4760,6 +4771,15 @@ public final class Settings {
                 ANY_INTEGER_VALIDATOR;
 
         /**
+         * Whether to display the kronic logo in the statusbar
+         * @hide
+         */
+        public static final String STATUS_BAR_LOGO = "status_bar_logo";
+        /** @hide */
+        private static final Validator STATUS_BAR_LOGO_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
+        /**
          * @hide
          */
         public static final String BOTTOM_GESTURE_SWIPE_LIMIT =
@@ -4770,13 +4790,19 @@ public final class Settings {
 
 
         /**
-         * Wheter to show network traffic indicator in statusbar
+         * Whether to show network traffic indicator (in statusbar by default)
          * @hide
          */
         public static final String NETWORK_TRAFFIC_STATE = "network_traffic_state";
         /** @hide */
         private static final Validator NETWORK_TRAFFIC_STATE_VALIDATOR =
                 BOOLEAN_VALIDATOR;
+
+        /**
+         * Whether to show network traffic indicator in expanded header
+         * @hide
+         */
+        public static final String NETWORK_TRAFFIC_VIEW_LOCATION = "network_traffic_view_location";
 
         /**
          * Whether or not to hide the network traffic indicator when there is no activity
@@ -4804,6 +4830,15 @@ public final class Settings {
         /** @hide */
         private static final Validator NETWORK_TRAFFIC_HIDEARROW_VALIDATOR =
                 BOOLEAN_VALIDATOR;
+
+        /**
+         * Whether allowing pocket service to register sensors and dispatch informations.
+         *   0 = disabled
+         *   1 = enabled
+         * @author Carlo Savignano
+         * @hide
+         */
+        public static final String POCKET_JUDGE = "pocket_judge";
 
         /**
          * 0 - fullscreen
@@ -4897,6 +4932,13 @@ public final class Settings {
         private static final Validator FULL_GESTURE_NAVBAR_DT2S_VALIDATOR =
                 BOOLEAN_VALIDATOR;
 
+       /**
+        * Statusbar logo Style
+        * @hide
+         */
+        public static final String STATUS_BAR_LOGO_STYLE = "status_bar_logo_style";
+
+
         /**
          * Disable expanding quick settings on secure lock screens
          *
@@ -4932,6 +4974,14 @@ public final class Settings {
         public static final Validator STATUS_BAR_BRIGHTNESS_CONTROL_VALIDATOR = BOOLEAN_VALIDATOR;
 
         /**
+         * The enabled mode for the theme tile.
+         * - ACCENT
+         * - STYLE
+         * @hide
+         */
+        public static final String THEME_TILE_ENABLED_MODE = "theme_tile_enabled_mode";
+
+        /**
          * Custom Ambient tilt gesture
          * @hide
          */
@@ -4948,6 +4998,13 @@ public final class Settings {
          * @hide
          */
         public static final String CUSTOM_AMBIENT_POCKETMODE_GESTURE = "custom_ambient_pocketmode_gesture";
+
+        /**
+         * Whether to enable gaming mode or not
+         *
+         * @hide
+         */
+        public static final String ENABLE_GAMING_MODE = "enable_gaming_mode";
 
          /**
          * Force an Ambient notification when a new media track is being played
@@ -5109,13 +5166,33 @@ public final class Settings {
                 new SettingsValidators.InclusiveIntegerRangeValidator(0, 1);
 
         /**
-         * Check the proximity sensor during wakeup
-         * 0 = 0ff, 1 = on
+         *  Weather to use a custom color for the visualizer on the lock screen
+         * @hide
          */
-        public static final String PROXIMITY_ON_WAKE = "proximity_on_wake";
+        public static final String LOCK_SCREEN_VISUALIZER_USE_CUSTOM_COLOR = "lock_screen_visualizer_use_custom_color";
 
-        /** @hide */
-        public static final Validator PROXIMITY_ON_WAKE_VALIDATOR = BOOLEAN_VALIDATOR;
+        /**
+         *  Custom color of the visualizer on the lock screen
+         * @hide
+         */
+        public static final String LOCK_SCREEN_VISUALIZER_CUSTOM_COLOR = "lock_screen_visualizer_custom_color";
+
+        /**
+         * modify how the album art shows up on lockscreen
+         * 0 - default
+         * 1 - grayscale
+         * 2 - blurry
+         * @hide
+         */
+        public static final String LOCKSCREEN_ALBUM_ART_FILTER = "lockscreen_album_art_filter";
+
+        /**
+         * Whether to show the kill app button in notification guts
+         *
+         * @hide
+         */
+        public static final String NOTIFICATION_GUTS_KILL_APP_BUTTON =
+                "notification_guts_kill_app_button";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
@@ -5222,7 +5299,6 @@ public final class Settings {
             POWERMENU_AIRPLANE,
             POWERMENU_ADVANCED_REBOOT,
             POWERMENU_REBOOT,
-            PROXIMITY_ON_WAKE,
             QS_LAYOUT_ROWS,
             QS_LAYOUT_ROWS_LANDSCAPE,
             QS_LAYOUT_COLUMNS_LANDSCAPE,
@@ -5232,7 +5308,6 @@ public final class Settings {
             QS_QUICKBAR_COLUMNS,
             RECENTS_CLEAR_ALL_LOCATION,
             RECENTS_COMPONENT,
-            ROAMING_INDICATOR_ICON,
             SCREENSHOT_DEFAULT_MODE,
             SCREENSHOT_SHUTTER_SOUND,
             SCREENRECORD_QUALITY_MODE,
@@ -5249,6 +5324,7 @@ public final class Settings {
             STATUSBAR_CLOCK_DATE_POSITION,
             STATUSBAR_HIDE_NOTCH,
             STATUS_BAR_BRIGHTNESS_CONTROL,
+            STATUS_BAR_LOGO,
             STATUS_BAR_SHOW_CARRIER,
             STATUS_BAR_QUICK_QS_PULLDOWN,
             SWAP_VOLUME_BUTTONS,
@@ -5376,7 +5452,6 @@ public final class Settings {
             PUBLIC_SETTINGS.add(POWERMENU_AIRPLANE);
             PUBLIC_SETTINGS.add(POWERMENU_REBOOT);
             PUBLIC_SETTINGS.add(POWERMENU_SCREENSHOT);
-            PUBLIC_SETTINGS.add(PROXIMITY_ON_WAKE);
             PUBLIC_SETTINGS.add(QS_LAYOUT_ROWS);
             PUBLIC_SETTINGS.add(QS_LAYOUT_ROWS_LANDSCAPE);
             PUBLIC_SETTINGS.add(QS_LAYOUT_COLUMNS);
@@ -5386,7 +5461,6 @@ public final class Settings {
             PUBLIC_SETTINGS.add(QS_TILE_HIDE_TITLE);
             PUBLIC_SETTINGS.add(RECENTS_CLEAR_ALL_LOCATION);
             PUBLIC_SETTINGS.add(RECENTS_COMPONENT);
-            PUBLIC_SETTINGS.add(ROAMING_INDICATOR_ICON);
             PUBLIC_SETTINGS.add(SCREENSHOT_DEFAULT_MODE);
             PUBLIC_SETTINGS.add(SCREENSHOT_SHUTTER_SOUND);
             PUBLIC_SETTINGS.add(SCREENRECORD_QUALITY_MODE);
@@ -5425,7 +5499,7 @@ public final class Settings {
             PUBLIC_SETTINGS.add(BUTTON_BACKLIGHT_ENABLE);
             PUBLIC_SETTINGS.add(BUTTON_BACKLIGHT_TIMEOUT);
             PUBLIC_SETTINGS.add(BUTTON_BACKLIGHT_ON_TOUCH_ONLY);
-
+            PUBLIC_SETTINGS.add(STATUS_BAR_LOGO);
         }
 
         /**
@@ -5475,6 +5549,9 @@ public final class Settings {
             PRIVATE_SETTINGS.add(SHOW_BATTERY_PERCENT);
             PRIVATE_SETTINGS.add(DISPLAY_COLOR_MODE);
             PRIVATE_SETTINGS.add(DOZE_ON_CHARGE);
+
+            // Pocket mode handler.
+            PRIVATE_SETTINGS.add(POCKET_JUDGE);
         }
 
         /**
@@ -5608,7 +5685,6 @@ public final class Settings {
             VALIDATORS.put(POWERMENU_AIRPLANE, POWERMENU_AIRPLANE_VALIDATOR);
             VALIDATORS.put(POWERMENU_REBOOT, POWERMENU_REBOOT_VALIDATOR);
             VALIDATORS.put(POWERMENU_SCREENSHOT, POWERMENU_SCREENSHOT_VALIDATOR);
-            VALIDATORS.put(PROXIMITY_ON_WAKE, PROXIMITY_ON_WAKE_VALIDATOR);
             VALIDATORS.put(QS_LAYOUT_ROWS, QS_LAYOUT_ROWS_VALIDATOR);
             VALIDATORS.put(QS_LAYOUT_ROWS_LANDSCAPE, QS_LAYOUT_ROWS_LANDSCAPE_VALIDATOR);
             VALIDATORS.put(QS_LAYOUT_COLUMNS_LANDSCAPE, QS_LAYOUT_COLUMNS_LANDSCAPE_VALIDATOR);
@@ -5618,7 +5694,6 @@ public final class Settings {
             VALIDATORS.put(QS_TILE_HIDE_TITLE, QS_TILE_HIDE_TITLE_VALIDATOR);
             VALIDATORS.put(RECENTS_CLEAR_ALL_LOCATION, RECENTS_CLEAR_ALL_LOCATION_VALIDATOR);
             VALIDATORS.put(RECENTS_COMPONENT,RECENTS_COMPONENT_VALIDATOR);
-            VALIDATORS.put(ROAMING_INDICATOR_ICON,ROAMING_INDICATOR_ICON_VALIDATOR);
             VALIDATORS.put(SCREENSHOT_DEFAULT_MODE, SCREENSHOT_DEFAULT_MODE_VALIDATOR);
             VALIDATORS.put(SCREENRECORD_QUALITY_MODE, SCREENRECORD_QUALITY_MODE_VALIDATOR);
             VALIDATORS.put(SCREENSHOT_SHUTTER_SOUND, SCREENSHOT_SHUTTER_SOUND_VALIDATOR);
@@ -5653,9 +5728,9 @@ public final class Settings {
             VALIDATORS.put(VOLUME_ROCKER_WAKE, VOLUME_ROCKER_WAKE_VALIDATOR);
             VALIDATORS.put(WAKE_WHEN_PLUGGED_OR_UNPLUGGED, WAKE_WHEN_PLUGGED_OR_UNPLUGGED_VALIDATOR);
             VALIDATORS.put(RECENTS_COMPONENT,RECENTS_COMPONENT_VALIDATOR);
-            VALIDATORS.put(PROXIMITY_ON_WAKE, PROXIMITY_ON_WAKE_VALIDATOR);
             VALIDATORS.put(NOTIFICATION_LIGHT_PULSE, BOOLEAN_VALIDATOR);
             VALIDATORS.put(DOZE_ON_CHARGE, DOZE_ON_CHARGE_VALIDATOR);
+            VALIDATORS.put(STATUS_BAR_LOGO, STATUS_BAR_LOGO_VALIDATOR);
         }
 
         /**
@@ -9281,6 +9356,22 @@ public final class Settings {
         public static final String SQUEEZE_SELECTION_SMART_ACTIONS = "squeeze_selection_smart_actions";
 
         /**
+         * Select various actions for long squeeze gesture
+         *
+         * @hide
+         */
+        public static final String LONG_SQUEEZE_SELECTION_SMART_ACTIONS = "long_squeeze_selection_smart_actions";
+
+        /**
+         * @hide
+         */
+        public static final String PRIVACY_GUARD_DEFAULT = "privacy_guard_default";
+         /**
+         * @hide
+         */
+        public static final String PRIVACY_GUARD_NOTIFICATION = "privacy_guard_notification";
+
+        /**
          * Display style of the status bar battery information
          * 0: Display the battery an icon in portrait mode
          * 1: Display the battery as a circle
@@ -12790,6 +12881,30 @@ public final class Settings {
          * @hide
          */
         public static final String KEEP_PROFILE_IN_BACKGROUND = "keep_profile_in_background";
+
+        /**
+         * Whether or not to use aggressive device idle constants and ignore motion.
+         * Type: int (0 for false, 1 for true)
+         * Default: 0
+         * @hide
+         */
+        public static final String AGGRESSIVE_IDLE_ENABLED = "aggressive_idle_enabled";
+
+        /**
+         * Whether or not to use aggressive app idle constants.
+         * Type: int (0 for false, 1 for true)
+         * Default: 0
+         * @hide
+         */
+        public static final String AGGRESSIVE_STANDBY_ENABLED = "aggressive_standby_enabled";
+
+        /**
+         * Flag to automatically enable Aggressive Idle and Standby with battery saver.
+         * Type: int (0 for false, 1 for true)
+         * Default: 0
+         * @hide
+         */
+        public static final String AGGRESSIVE_BATTERY_SAVER = "aggressive_battery_saver";
 
         /**
          * Get the key that retrieves a bluetooth headset's priority.

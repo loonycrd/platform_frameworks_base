@@ -53,16 +53,24 @@
   <java-symbol type="bool" name="config_useDarkBgNotificationTinting_override" />
   <java-symbol type="bool" name="config_notificationTinting_override" />
 
-  <!-- Notification icon/text dynamic tint -->
-  <java-symbol type="bool" name="config_allowNotificationIconTextTinting" />
-  <java-symbol type="color" name="notification_text_default_color" />
-  <java-symbol type="color" name="notification_icon_default_color" />
-
-  <!-- Notification sender text color -->
-  <java-symbol type="color" name="sender_text_color" />
+  <!-- Privacy Guard -->
+  <java-symbol type="drawable" name="stat_notify_privacy_guard" />
+  <java-symbol type="string" name="privacy_guard_notification" />
+  <java-symbol type="string" name="privacy_guard_notification_detail" />
+  <java-symbol type="string" name="privacy_guard_dialog_title" />
+  <java-symbol type="string" name="privacy_guard_dialog_summary" />
+  <java-symbol type="id" name="permission_text" />
+  <java-symbol type="id" name="permission_remember_choice_checkbox" />
+  <java-symbol type="string" name="allow" />
+  <java-symbol type="string" name="deny" />
+  <java-symbol type="layout" name="permission_confirmation_dialog" />
+  <java-symbol type="array" name="app_ops_labels" />
 
   <!-- Notification app name tint -->
   <java-symbol type="bool" name="config_allowNotificationAppNameTextTinting" />
+
+  <!-- Dreamliner service -->
+  <java-symbol type="bool" name="config_enableDreamlinerService" />
 
   <!-- Wallpaper component -->
   <java-symbol type="string" name="default_wallpaper_component_custom" />
@@ -87,9 +95,6 @@
 
   <!-- Ambient display music ticker -->
   <java-symbol type="bool" name="config_canForceDozeNotifications" />
-
-  <!-- Oreo's recents component activity -->
-  <java-symbol type="string" name="config_recentsComponentNameOreo" />
 
   <!-- Power Menu -->
   <java-symbol type="string" name="reboot_to_recovery_title" />
@@ -156,9 +161,6 @@
   <!-- Whether or not swipe up gesture's opt-in setting is available on this device -->
   <java-symbol type="bool" name="config_custom_swipe_up_gesture_setting_available" />
 
-  <!-- Flashlight proximity check -->
-  <java-symbol type="integer" name="config_flashlightProximityTimeout" />
-
   <!-- Whether device has dash charging support -->
   <java-symbol type="bool" name="config_hasDashCharger" />
 
@@ -173,5 +175,17 @@
 
   <!-- Whether device ignores the RSSNR signal implementation -->
   <java-symbol type="bool" name="config_ignoreRssnrSignalLevel" />
+
+  <!-- Does device have ActiveEdge -->
+  <java-symbol type="bool" name="config_hasActiveEdge" />
+
+  <!-- Pocket Lock -->
+  <java-symbol type="layout" name="pocket_lock_view_layout" />
+  <java-symbol type="id" name="pocket_hint_container" />
+  <java-symbol type="id" name="pocket_hint_image" />
+  <java-symbol type="id" name="pocket_hint_message" />
+
+  <!-- Pocket bridge -->
+  <java-symbol type="string" name="config_pocketBridgeSysfsInpocket" />
 
 </resources>

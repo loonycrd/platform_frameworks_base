@@ -22,9 +22,12 @@ import android.media.session.MediaController;
 import android.media.session.MediaSession;
 import android.media.session.MediaSessionManager;
 import android.media.session.PlaybackState;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.os.UserHandle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 
 import com.android.systemui.statusbar.phone.StatusBar;
 import com.android.systemui.Dumpable;
@@ -34,7 +37,9 @@ import com.android.systemui.statusbar.phone.StatusBar;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Handles tasks and state related to media notifications. For example, there is a 'current' media
@@ -59,6 +64,7 @@ public class NotificationMediaManager implements Dumpable {
     private MediaUpdateListener mListener;
 
     private String mNowPlayingNotificationKey;
+    private Set<String> mBlacklist = new HashSet<String>();
 
     // callback into NavigationFragment for Pulse
     public interface MediaUpdateListener {
@@ -341,6 +347,39 @@ public class NotificationMediaManager implements Dumpable {
         mMediaController = null;
     }
 
+    private void triggerKeyEvents(int key, MediaController controller, final Handler h) {
+        long when = SystemClock.uptimeMillis();
+        final KeyEvent evDown = new KeyEvent(when, when, KeyEvent.ACTION_DOWN, key, 0);
+        final KeyEvent evUp = KeyEvent.changeAction(evDown, KeyEvent.ACTION_UP);
+        h.post(new Runnable() {
+            @Override
+            public void run() {
+                controller.dispatchMediaButtonEvent(evDown);
+            }
+        });
+        h.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                controller.dispatchMediaButtonEvent(evUp);
+            }
+        }, 20);
+    }
+
+    public void onSkipTrackEvent(int key, final Handler h) {
+        if (mMediaSessionManager != null) {
+            final List<MediaController> sessions
+                    = mMediaSessionManager.getActiveSessionsForUser(
+                    null, UserHandle.USER_ALL);
+            for (MediaController aController : sessions) {
+                if (PlaybackState.STATE_PLAYING ==
+                        getMediaControllerPlaybackState(aController)) {
+                    triggerKeyEvents(key, aController, h);
+                    break;
+                }
+            }
+        }
+    }
+
     public void setMediaPlaying() {
         if (PlaybackState.STATE_PLAYING ==
                 getMediaControllerPlaybackState(mMediaController)
@@ -352,6 +391,10 @@ public class NotificationMediaManager implements Dumpable {
             final String pkg = mMediaController.getPackageName();
             boolean dontPulse = false;
             boolean mediaNotification= false;
+            if (!mBlacklist.isEmpty() && mBlacklist.contains(pkg)) {
+                // don't play Pulse for this app
+                return;
+            }
             for (int i = 0; i < N; i++) {
                 final NotificationData.Entry entry = activeNotifications.get(i);
                 if (entry.notification.getPackageName().equals(pkg)) {
@@ -388,6 +431,15 @@ public class NotificationMediaManager implements Dumpable {
      public void setPulseColors(boolean isColorizedMEdia, int[] colors) {
         if (mListener != null) {
             mListener.setPulseColors(isColorizedMEdia, colors);
+        }
+    }
+
+    public void setPulseBlacklist(String blacklist) {
+        mBlacklist.clear();
+        if (blacklist != null) {
+            for (String app : blacklist.split("\\|")) {
+                mBlacklist.add(app);
+            }
         }
     }
 }

@@ -17,7 +17,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- AOD QS tile -->
-    <string name="quick_settings_aod_label">AOD</string>
+    <string name="quick_settings_aod_label">息屏显示</string>
     <!-- QS Colums & rows -->
     <string name="qs_menu_item_columns">栏</string>
     <string name="qs_menu_item_columns_landscape">行 (横向)</string>
@@ -80,6 +80,10 @@
     <string name="qs_lte_label">LTE</string>
     <string name="lte_on">LTE 开启 </string>
     <string name="lte_off">LTE 关闭</string>
+    <!-- HW Keys Tile -->
+    <string name="accessibility_quick_settings_hwkeys_on">HW keys on</string>
+    <string name="accessibility_quick_settings_hwkeys_off">HW keys off</string>
+    <string name="quick_settings_hwkeys_label">HW keys</string>
     <!-- Screenshot Delete Toast -->
     <string name="delete_screenshot_toast">屏幕截图已删除</string>
     <!-- Ambient Display Pixel-Like string -->
@@ -106,6 +110,10 @@
     <string name="global_action_restart_ui">系统界面</string>
     <string name="global_action_restart_hot">快速重启</string>
     <string name="global_action_screenshot">屏幕截图</string>
+    <!-- Kill button in notification guts -->
+    <string name="force_stop_dlg_title">是否强制停止？</string>
+    <string name="force_stop_dlg_text">强行停止某个应用可能导致其出现异常。</string>
+    <string name="guts_force_close_app">关闭应用程序</string>
     <!-- Reboot/Recovery QS Tile -->
     <string name="quick_settings_reboot_label">重新启动</string>
     <string name="quick_settings_reboot_recovery_label">恢复模式</string>

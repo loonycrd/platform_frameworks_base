@@ -80,6 +80,10 @@
     <string name="qs_lte_label">LTE</string>
     <string name="lte_on">LTE Ligado </string>
     <string name="lte_off">LTE desligado</string>
+    <!-- HW Keys Tile -->
+    <string name="accessibility_quick_settings_hwkeys_on">HW keys on</string>
+    <string name="accessibility_quick_settings_hwkeys_off">HW keys off</string>
+    <string name="quick_settings_hwkeys_label">HW keys</string>
     <!-- Screenshot Delete Toast -->
     <string name="delete_screenshot_toast">A captura de tela foi apagada</string>
     <!-- Ambient Display Pixel-Like string -->
@@ -106,6 +110,10 @@
     <string name="global_action_restart_ui">Interface do sistema</string>
     <string name="global_action_restart_hot">Reinício rápido</string>
     <string name="global_action_screenshot">Captura de tela</string>
+    <!-- Kill button in notification guts -->
+    <string name="force_stop_dlg_title">Forçar parada?</string>
+    <string name="force_stop_dlg_text">Se você forçar a parada de um app, ele pode apresentar mau funcionamento.</string>
+    <string name="guts_force_close_app">Fechar aplicativo</string>
     <!-- Reboot/Recovery QS Tile -->
     <string name="quick_settings_reboot_label">Reiniciar</string>
     <string name="quick_settings_reboot_recovery_label">Recuperação</string>

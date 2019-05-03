@@ -80,6 +80,10 @@
     <string name="qs_lte_label">LTE</string>
     <string name="lte_on">LTE увімкнено </string>
     <string name="lte_off">LTE вимк.</string>
+    <!-- HW Keys Tile -->
+    <string name="accessibility_quick_settings_hwkeys_on">HW keys on</string>
+    <string name="accessibility_quick_settings_hwkeys_off">HW keys off</string>
+    <string name="quick_settings_hwkeys_label">HW keys</string>
     <!-- Screenshot Delete Toast -->
     <string name="delete_screenshot_toast">Знімок екрану видалено</string>
     <!-- Ambient Display Pixel-Like string -->
@@ -106,6 +110,10 @@
     <string name="global_action_restart_ui">Перезапустити SystemUI</string>
     <string name="global_action_restart_hot">Швидке перезавантаження</string>
     <string name="global_action_screenshot">Знімок екрану</string>
+    <!-- Kill button in notification guts -->
+    <string name="force_stop_dlg_title">Force stop?</string>
+    <string name="force_stop_dlg_text">If you force stop an app, it may misbehave.</string>
+    <string name="guts_force_close_app">Close App</string>
     <!-- Reboot/Recovery QS Tile -->
     <string name="quick_settings_reboot_label">Перезавантаження</string>
     <string name="quick_settings_reboot_recovery_label">Recovery</string>
