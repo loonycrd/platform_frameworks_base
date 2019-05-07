@@ -4544,6 +4544,12 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
+         * Wheter to show heads up only for dialer and sms apps
+         * @hide
+         */
+        public static final String LESS_BORING_HEADS_UP = "less_boring_heads_up";
+
+        /**
          * Whether to show VoLTE icon or not
          * @hide
          */
@@ -4672,6 +4678,13 @@ public final class Settings {
         /** @hide */
         private static final Validator VOLUME_KEYS_CONTROL_RING_TONE_VALIDATOR =
                BOOLEAN_VALIDATOR;
+
+        /**
+         * Ambient screen settings
+         * "screen_brightness_array=0:1:2:3:4"
+         * @hide
+         */
+        public static final String ALWAYS_ON_DISPLAY_CONSTANTS_CUST = "always_on_display_constants_cust";
 
         /**
          * Select various accents to go along with system themes
