@@ -4462,7 +4462,7 @@ public final class Settings {
         public static final String LOCKSCREEN_CLOCK_SELECTION = "lockscreen_clock_selection";
         /** @hide */
         public static final Validator LOCKSCREEN_CLOCK_SELECTION_VALIDATOR =
-                new SettingsValidators.InclusiveIntegerRangeValidator(0, 8);
+                new SettingsValidators.InclusiveIntegerRangeValidator(0, 9);
 
         /**
          * Whether to hide the items underneath the lockscreen clock
@@ -4575,6 +4575,12 @@ public final class Settings {
         /** @hide */
         private static final Validator SWAP_VOLUME_BUTTONS_VALIDATOR =
                 BOOLEAN_VALIDATOR;
+
+	/**
+         * Whether to enable the pixel navbar animation
+         * @hide
+         */
+        public static final String PIXEL_NAV_ANIMATION = "pixel_nav_animation";
 
         /**
          * Toast icon
@@ -4694,7 +4700,7 @@ public final class Settings {
         public static final String ACCENT_PICKER = "accent_picker";
         /** @hide */
         public static final Validator ACCENT_PICKER_VALIDATOR =
-                new SettingsValidators.InclusiveIntegerRangeValidator(0, 28);
+                new SettingsValidators.InclusiveIntegerRangeValidator(0, 30);
 
         /**
          * Whether to use blackaf themes in place of dark

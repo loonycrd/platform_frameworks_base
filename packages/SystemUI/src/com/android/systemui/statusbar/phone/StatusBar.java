@@ -186,6 +186,7 @@ import com.android.systemui.doze.DozeLog;
 import com.android.systemui.doze.DozeReceiver;
 import com.android.systemui.fragments.ExtensionFragmentListener;
 import com.android.systemui.fragments.FragmentHostManager;
+import com.android.systemui.keyguard.KeyguardSliceProvider;
 import com.android.systemui.keyguard.KeyguardViewMediator;
 import com.android.systemui.keyguard.ScreenLifecycle;
 import com.android.systemui.keyguard.WakefulnessLifecycle;
@@ -757,6 +758,13 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
 
         mColorExtractor = Dependency.get(SysuiColorExtractor.class);
         mColorExtractor.addOnColorsChangedListener(this);
+
+        KeyguardSliceProvider keyguardSliceProvider = KeyguardSliceProvider.getAttachedInstance();
+        if (keyguardSliceProvider != null) {
+            keyguardSliceProvider.setMediaManager(mMediaManager);
+        } else {
+            Log.w("StatusBar", "Cannot init KeyguardSliceProvider dependencies");
+        }
 
         final TunerService tunerService = Dependency.get(TunerService.class);
         tunerService.addTunable(this, SCREEN_BRIGHTNESS_MODE);
@@ -1870,10 +1878,10 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
                         artworkDrawable = new BitmapDrawable(ImageHelper.getColoredBitmap(aw, mContext.getResources().getColor(R.color.sammy_minutes_accent)));
                         break;
                     case 3:
-                        artworkDrawable = new BitmapDrawable(mBackdropBack.getResources(), ImageHelper.getBlurredImage(mContext, artworkBitmap, 7.0f));
+                        artworkDrawable = new BitmapDrawable(mBackdropBack.getResources(), ImageHelper.getBlurredImage(mContext, artworkBitmap, 25.0f));
                         break;
                     case 4:
-                        artworkDrawable = new BitmapDrawable(mBackdropBack.getResources(), ImageHelper.getGrayscaleBlurredImage(mContext, artworkBitmap, 7.0f));
+                        artworkDrawable = new BitmapDrawable(mBackdropBack.getResources(), ImageHelper.getGrayscaleBlurredImage(mContext, artworkBitmap, 25.0f));
                         break;
                     case 0:
                     default:
@@ -4452,6 +4460,10 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
         mKeyguardIndicationController.setDozing(mDozing);
         mNotificationPanel.setDozing(mDozing, animate);
         mVisualizerView.setDozing(mDozing);
+        KeyguardSliceProvider keyguardSliceProvider = KeyguardSliceProvider.getAttachedInstance();
+        if (keyguardSliceProvider != null) {
+            keyguardSliceProvider.setDozing(mDozing);
+        }
         updateQsExpansionEnabled();
 
         if (isAmbientContainerAvailable()) {
@@ -5530,7 +5542,8 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
 
         @Override
         public void onDoubleTap(float screenX, float screenY) {
-            if (isDoubleTapOnMusicTicker(screenX, screenY)) {
+            if (isDoubleTapOnMusicTicker(screenX, screenY) 
+                    || isDoubleTapOnMediaSlice(screenX, screenY)) {
                 handleSystemKey(KeyEvent.KEYCODE_MEDIA_NEXT);
             } else {
                 for (Callback callback : mCallbacks) {
@@ -5580,16 +5593,32 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
     }
 
     public boolean isDoubleTapOnMusicTicker(float eventX, float eventY) {
+        final View indication = ((AmbientIndicationContainer) mAmbientIndicationContainer).getIndication();
         if (eventX <= 0 || eventY <= 0 || mAmbientIndicationContainer == null
-                || mAmbientIndicationContainer.getVisibility() != View.VISIBLE) {
+                || mAmbientIndicationContainer.getVisibility() != View.VISIBLE
+                || indication.getVisibility() != View.VISIBLE) {
             return false;
         }
-        final View indication = ((AmbientIndicationContainer)mAmbientIndicationContainer).getIndication();
         indication.getLocationOnScreen(mTmpInt2);
         float viewX = eventX - mTmpInt2[0];
         float viewY = eventY - mTmpInt2[1];
         if (0 <= viewX && viewX <= indication.getWidth()
                 && 0 <= viewY && viewY <= indication.getHeight()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isDoubleTapOnMediaSlice(float eventX, float eventY) {
+        View mediaButton = mNotificationPanel.getKeyguardStatusView().getSliceView().getMediaButton();
+        if (eventX <= 0 || eventY <= 0 || mediaButton == null) {
+            return false;
+        }
+        mediaButton.getLocationOnScreen(mTmpInt2);
+        float viewX = eventX - mTmpInt2[0];
+        float viewY = eventY - mTmpInt2[1];
+        if (0 <= viewX && viewX <= mediaButton.getWidth()
+                && 0 <= viewY && viewY <= mediaButton.getHeight()) {
             return true;
         }
         return false;
@@ -5794,8 +5823,9 @@ public class StatusBar extends SystemUI implements DemoMode, TunerService.Tunabl
         mAmbientMediaPlaying = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.FORCE_AMBIENT_FOR_MEDIA, 1,
                 UserHandle.USER_CURRENT) != 0;
-        if (isAmbientContainerAvailable()) {
-            ((AmbientIndicationContainer)mAmbientIndicationContainer).setIndication(null, false);
+        KeyguardSliceProvider keyguardSliceProvider = KeyguardSliceProvider.getAttachedInstance();
+        if (keyguardSliceProvider != null) {
+            keyguardSliceProvider.setAllowMedia(mAmbientMediaPlaying);
         }
     }
 

@@ -1269,7 +1269,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     };
 
     private ImmersiveModeConfirmation mImmersiveModeConfirmation;
-    private OPGesturesListener mOPGestures;
+    private SwipeToScreenshotListener mSwipeToScreenshot;
 
     @VisibleForTesting
     SystemGesturesPointerEventListener mSystemGestures;
@@ -2017,9 +2017,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
         @Override
         public void run() {
-            mScreenshotHelper.takeScreenshot(mScreenshotType,
-                    mStatusBar != null && mStatusBar.isVisibleLw(),
-                    mNavigationBar != null && mNavigationBar.isVisibleLw(), mHandler);
+            if (!mPocketLockShowing){
+                mScreenshotHelper.takeScreenshot(mScreenshotType,
+                        mStatusBar != null && mStatusBar.isVisibleLw(),
+                        mNavigationBar != null && mNavigationBar.isVisibleLw(), mHandler);
+            }
         }
     }
 
@@ -2277,10 +2279,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     context, minHorizontal, maxHorizontal, minVertical, maxVertical, maxRadius);
         }
 
-        mOPGestures = new OPGesturesListener(context, new OPGesturesListener.Callbacks() {
+        mSwipeToScreenshot = new SwipeToScreenshotListener(context, new SwipeToScreenshotListener.Callbacks() {
             @Override
             public void onSwipeThreeFinger() {
-                mHandler.post(mScreenshotRunnable);
+                if (!mPocketLockShowing){
+                    mHandler.post(mScreenshotRunnable);
+                }
             }
         });
 
@@ -2606,11 +2610,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         if (enable) {
             if (haveEnableGesture) return;
             haveEnableGesture = true;
-            mWindowManagerFuncs.registerPointerEventListener(mOPGestures);
+            mWindowManagerFuncs.registerPointerEventListener(mSwipeToScreenshot);
         } else {
             if (!haveEnableGesture) return;
             haveEnableGesture = false;
-            mWindowManagerFuncs.unregisterPointerEventListener(mOPGestures);
+            mWindowManagerFuncs.unregisterPointerEventListener(mSwipeToScreenshot);
         }
     }
 
@@ -7625,6 +7629,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
      */
     private void handleDevicePocketStateChanged() {
         final boolean interactive = mPowerManager.isInteractive();
+        mImmersiveModeConfirmation.onDevicePocketStateChanged(mIsDeviceInPocket);
         if (mIsDeviceInPocket) {
             showPocketLock(interactive);
         } else {
@@ -7645,12 +7650,18 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return;
         }
 
+        if (mPowerManager.isInteractive() && !isKeyguardShowingAndNotOccluded()){
+            return;
+        }
+
         if (DEBUG) {
             Log.d(TAG, "showPocketLock, animate=" + animate);
         }
 
         mPocketLock.show(animate);
         mPocketLockShowing = true;
+
+        mPocketManager.setPocketLockVisible(true);
     }
 
     /**
@@ -7672,6 +7683,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
         mPocketLock.hide(animate);
         mPocketLockShowing = false;
+
+        mPocketManager.setPocketLockVisible(false);
     }
 
     private void handleHideBootMessage() {
