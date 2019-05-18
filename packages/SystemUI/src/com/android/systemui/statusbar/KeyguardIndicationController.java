@@ -439,11 +439,11 @@ public class KeyguardIndicationController {
                 chargingCurrent = chargingCurrent + (mChargingCurrent / 1000) + "mA";
             }
             if (mChargingVoltage > 0) {
-                chargingCurrent = (chargingCurrent == "" ? "" : chargingCurrent + " \u2022 ") +
+                chargingCurrent = (chargingCurrent == "" ? "" : chargingCurrent + " • ") +
                         String.format("%.1f", (mChargingVoltage / 1000 / 1000)) + "V";
             }
             if (mTemperature > 0) {
-                chargingCurrent = (chargingCurrent == "" ? "" : chargingCurrent + " \u2022 ") +
+                chargingCurrent = (chargingCurrent == "" ? "" : chargingCurrent + " • ") +
                         mTemperature / 10 + "\u00B0C";
             }
             if (chargingCurrent != "") {
