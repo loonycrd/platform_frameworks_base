@@ -195,12 +195,14 @@ public class QuickStatusBarHeader extends RelativeLayout implements
 
             mBatteryRemainingIcon.isQsbHeader();
             mBatteryRemainingIcon.setShowEstimate(true);
+            mBatteryRemainingIcon.setOnClickListener(this);
         } else {
             ((ViewGroup) mBatteryRemainingIcon.getParent()).removeView(mBatteryRemainingIcon);
             mBatteryRemainingIcon = null;
 
             mBatteryMeterView.isQsbHeader();
             mBatteryMeterView.setShowEstimate(true);
+            mBatteryMeterView.setOnClickListener(this);
         }
 
         mClockView = findViewById(R.id.clock);
@@ -338,14 +340,13 @@ public class QuickStatusBarHeader extends RelativeLayout implements
 
     private void updateStatusIconAlphaAnimator() {
         mStatusIconsAlphaAnimator = new TouchAnimator.Builder()
-                .addFloat(mQuickQsStatusIcons, "alpha", 1, 0)
+                .addFloat(mQuickQsStatusIcons, "alpha", 1, 0, 0)
                 .build();
     }
 
     private void updateHeaderTextContainerAlphaAnimator() {
         mHeaderTextContainerAlphaAnimator = new TouchAnimator.Builder()
-                .addFloat(mHeaderTextContainerView, "alpha", 0, 1)
-                .setStartDelay(.5f)
+                .addFloat(mHeaderTextContainerView, "alpha", 0, 0, 1)
                 .build();
     }
 
@@ -468,7 +469,7 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         if (v == mClockView) {
             Dependency.get(ActivityStarter.class).postStartActivityDismissingKeyguard(new Intent(
                     AlarmClock.ACTION_SHOW_ALARMS),0);
-        } else if (v == mBatteryMeterView) {
+        } else if (v == mBatteryMeterView || v == mBatteryRemainingIcon) {
             Dependency.get(ActivityStarter.class).postStartActivityDismissingKeyguard(new Intent(
                     Intent.ACTION_POWER_USAGE_SUMMARY),0);
         }
