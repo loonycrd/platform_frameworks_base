@@ -57,7 +57,7 @@
     <string name="app_ops_modify_settings">cập nhật cài đặt hệ thống</string>
     <string name="app_ops_mute_unmute_microphone">tắt/bật micro</string>
     <string name="app_ops_phone_calls">trả lời cuộc gọi</string>
-    <string name="app_ops_picture_in_picture">sử dụng chế độ hình ảnh trên hình ảnh</string>
+    <string name="app_ops_picture_in_picture">sử dụng ảnh trong ảnh</string>
     <string name="app_ops_play_audio">phát âm thanh</string>
     <string name="app_ops_post_notification">gửi một thông báo</string>
     <string name="app_ops_project_media">dự án đa phương tiện</string>
@@ -129,7 +129,4 @@
     <string name="adb_active_generic_notification_message">Chạm để vô hiệu hoá gỡ lỗi.</string>
     <!-- Pocket Lock -->
     <string name="pocket_lock_message_long_press">Nhấn giữ phím nguồn để tương tác</string>
-    <!-- Defines the sysfs attribute path used by pocket bridge
-        to communicate pocket state to the pocket judge kernel driver. -->
-    <string name="config_pocketBridgeSysfsInpocket"></string>
 </resources>

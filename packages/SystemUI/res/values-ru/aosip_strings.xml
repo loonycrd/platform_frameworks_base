@@ -149,6 +149,12 @@
     <string name="nav_bar_layout_inverse">Инвертировать порядок кнопок</string>
     <!-- QS customizer -->
     <string name="drag_or_tap_to_add_tiles">Перетащите или нажмите для добавления/удаления плиток</string>
+    <!-- Sync QS Tile -->
+    <string name="quick_settings_sync_label">Синхронизация</string>
+    <string name="accessibility_quick_settings_sync_off">Синхронизация выключена</string>
+    <string name="accessibility_quick_settings_sync_on">Синхронизация включена</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Синхронизация отключена</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Синхронизация включена</string>
     <!-- Theme tile -->
     <string name="system_theme_style_title">Тема оформления</string>
     <string name="system_theme_style_auto">Автоматически</string>
@@ -220,4 +226,35 @@
     <string name="quick_settings_volume_panel_label">Панель громкости</string>
     <!-- AOD media indication -->
     <string name="music_controls_no_title">Без названия</string>
+    <!-- Content description of the location tile in quick settings when on, battery saving mode (not shown on the screen). [CHAR LIMIT=NONE] -->
+    <string name="accessibility_quick_settings_location_battery_saving">Определение местоположения: режим энергосбережения.</string>
+    <!-- Content description of the location tile in quick settings when on, sensors only mode (not shown on the screen). [CHAR LIMIT=NONE] -->
+    <string name="accessibility_quick_settings_location_gps_only">Определение местоположения: только GPS.</string>
+    <!-- Content description of the location tile in quick settings when on, high accuracy mode (not shown on the screen). [CHAR LIMIT=NONE] -->
+    <string name="accessibility_quick_settings_location_high_accuracy">Определение местоположения: по всем источникам.</string>
+    <!-- QuickSettings: Location (On, low-power) [CHAR LIMIT=NONE] -->
+    <string name="quick_settings_location_battery_saving_label">Энергосбережение</string>
+    <string name="quick_settings_location_battery_saving_label_twoline">Экономия батареи</string>
+    <!-- QuickSettings: Location (On, gps-only) [CHAR LIMIT=NONE] -->
+    <string name="quick_settings_location_gps_only_label">Только GPS</string>
+    <string name="quick_settings_location_gps_only_label_twoline">Только GPS</string>
+    <!-- QuickSettings: Location (On, high-accuracy) [CHAR LIMIT=NONE] -->
+    <string name="quick_settings_location_high_accuracy_label">По всем источникам</string>
+    <string name="quick_settings_location_high_accuracy_label_twoline">Высокая точность</string>
+    <!-- QuickSettings: Location detail panel title [CHAR LIMIT=NONE] -->
+    <string name="quick_settings_location_detail_title">Местоположение</string>
+    <!-- QuickSettings: Location detail panel menu title [CHAR LIMIT=NONE] -->
+    <string name="quick_settings_location_detail_menu_title">Выберите режим:</string>
+    <!-- [CHAR LIMIT=30] Location detail panel, high accuracy location mode -->
+    <string name="quick_settings_location_detail_mode_high_accuracy_title">По всем источникам</string>
+    <!-- [CHAR LIMIT=30] Location detail panel, battery saving location mode -->
+    <string name="quick_settings_location_detail_mode_battery_saving_title">По координатам сети</string>
+    <!-- [CHAR LIMIT=30] Location detail panel, device only location mode -->
+    <string name="quick_settings_location_detail_mode_sensors_only_title">Только по спутникам</string>
+    <!-- [CHAR LIMIT=130] Location detail panel, description for high accuracy mode -->
+    <string name="quick_settings_location_detail_mode_high_accuracy_description">Использовать GPS, Wi‑Fi, Bluetooth и мобильные сети для определения местоположения </string>
+    <!-- [CHAR LIMIT=130] Location detail panel, description for battery saving mode -->
+    <string name="quick_settings_location_detail_mode_battery_saving_description">Использовать Wi‑Fi, Bluetooth и мобильные сети для определения местоположения</string>
+    <!-- [CHAR LIMIT=130] Location detail panel, description for sensors only mode -->
+    <string name="quick_settings_location_detail_mode_sensors_only_description">Использовать GPS для определения местоположения</string>
 </resources>
