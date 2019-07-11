@@ -472,24 +472,112 @@ public class KeyguardStatusView extends GridLayout implements
         int lockClockFont = isPrimary ? getLockClockFont() : 0;
 
         if (lockClockFont == 0) {
-            mClockView.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
-            mTextClock.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+            mClockView.setTypeface(Typeface.create("roboto", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("roboto", Typeface.NORMAL));
         }
         if (lockClockFont == 1) {
-            mClockView.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
-            mTextClock.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+            mClockView.setTypeface(Typeface.create("roboto-medium", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("roboto-medium", Typeface.NORMAL));
         }
         if (lockClockFont == 2) {
-            mClockView.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
-            mTextClock.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
+            mClockView.setTypeface(Typeface.create("roboto", Typeface.BOLD));
+            mTextClock.setTypeface(Typeface.create("roboto", Typeface.BOLD));
         }
         if (lockClockFont == 3) {
-            mClockView.setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
-            mTextClock.setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
+            mClockView.setTypeface(Typeface.create("roboto-condensed", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("roboto-condensed", Typeface.NORMAL));
         }
         if (lockClockFont == 4) {
-            mClockView.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD));
-            mTextClock.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD));
+            mClockView.setTypeface(Typeface.create("roboto-condensed", Typeface.BOLD));
+            mTextClock.setTypeface(Typeface.create("roboto-condensed", Typeface.BOLD));
+        }
+        if (lockClockFont == 5) {
+            mClockView.setTypeface(Typeface.create("gsans", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("gsans", Typeface.NORMAL));
+        }
+        if (lockClockFont == 6) {
+            mClockView.setTypeface(Typeface.create("gsans-medium", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("gsans-medium", Typeface.NORMAL));
+        }
+        if (lockClockFont == 7) {
+            mClockView.setTypeface(Typeface.create("gsans", Typeface.BOLD));
+            mTextClock.setTypeface(Typeface.create("gsans", Typeface.BOLD));
+        }
+        if (lockClockFont == 8) {
+            mClockView.setTypeface(Typeface.create("gsans-condensed", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("gsans-condensed", Typeface.NORMAL));
+        }
+        if (lockClockFont == 9) {
+            mClockView.setTypeface(Typeface.create("gsans-condensed", Typeface.BOLD));
+            mTextClock.setTypeface(Typeface.create("gsans-condensed", Typeface.BOLD));
+        }
+        if (lockClockFont == 10) {
+            mClockView.setTypeface(Typeface.create("fira-sans", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("fira-sans", Typeface.NORMAL));
+        }
+        if (lockClockFont == 11) {
+            mClockView.setTypeface(Typeface.create("fira-sans-medium", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("fira-sans-medium", Typeface.NORMAL));
+        }
+        if (lockClockFont == 12) {
+            mClockView.setTypeface(Typeface.create("fira-sans", Typeface.BOLD));
+            mTextClock.setTypeface(Typeface.create("fira-sans", Typeface.BOLD));
+        }
+        if (lockClockFont == 13) {
+            mClockView.setTypeface(Typeface.create("fira-sans-condensed", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("fira-sans-condensed", Typeface.NORMAL));
+        }
+        if (lockClockFont == 14) {
+            mClockView.setTypeface(Typeface.create("fira-sans-condensed-medium", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("fira-sans-condensed-medium", Typeface.NORMAL));
+        }
+        if (lockClockFont == 15) {
+            mClockView.setTypeface(Typeface.create("fira-sans-condensed", Typeface.BOLD));
+            mTextClock.setTypeface(Typeface.create("fira-sans-condensed", Typeface.BOLD));
+        }
+        if (lockClockFont == 16) {
+            mClockView.setTypeface(Typeface.create("sf-pro", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("sf-pro", Typeface.NORMAL));
+        }
+        if (lockClockFont == 17) {
+            mClockView.setTypeface(Typeface.create("sf-pro-medium", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("sf-pro-medium", Typeface.NORMAL));
+        }
+        if (lockClockFont == 18) {
+            mClockView.setTypeface(Typeface.create("sf-pro", Typeface.BOLD));
+            mTextClock.setTypeface(Typeface.create("sf-pro", Typeface.BOLD));
+        }
+        if (lockClockFont == 19) {
+            mClockView.setTypeface(Typeface.create("sf-pro-condensed", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("sf-pro-condensed", Typeface.NORMAL));
+        }
+        if (lockClockFont == 20) {
+            mClockView.setTypeface(Typeface.create("sf-pro-condensed-medium", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("sf-pro-condensed-medium", Typeface.NORMAL));
+        }
+        if (lockClockFont == 21) {
+            mClockView.setTypeface(Typeface.create("sf-pro-condensed", Typeface.BOLD));
+            mTextClock.setTypeface(Typeface.create("sf-pro-condensed", Typeface.BOLD));
+        }
+        if (lockClockFont == 22) {
+            mClockView.setTypeface(Typeface.create("slate", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("slate", Typeface.NORMAL));
+        }
+        if (lockClockFont == 23) {
+            mClockView.setTypeface(Typeface.create("slate-medium", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("slate-medium", Typeface.NORMAL));
+        }
+        if (lockClockFont == 24) {
+            mClockView.setTypeface(Typeface.create("slate", Typeface.BOLD));
+            mTextClock.setTypeface(Typeface.create("slate", Typeface.BOLD));
+        }
+        if (lockClockFont == 25) {
+            mClockView.setTypeface(Typeface.create("slate-condensed", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("slate-condensed", Typeface.NORMAL));
+        }
+        if (lockClockFont == 26) {
+            mClockView.setTypeface(Typeface.create("slate-condensed", Typeface.BOLD));
+            mTextClock.setTypeface(Typeface.create("slate-condensed", Typeface.BOLD));
         }
     }
 
