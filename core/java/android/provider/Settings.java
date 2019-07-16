@@ -4447,6 +4447,14 @@ public final class Settings {
                 ANY_STRING_VALIDATOR;
 
         /**
+         * @hide
+         */
+        public static final String BOTTOM_GESTURE_FEEDBACK_DURATION = "bottom_gesture_navigation_feedback_duration";
+
+        /** @hide */
+        private static final Validator BOTTOM_GESTURE_FEEDBACK_DURATION_VALIDATOR = ANY_INTEGER_VALIDATOR;
+
+        /**
          * Whether to hide the lockscreen clock
          * @hide
          */
@@ -4590,6 +4598,13 @@ public final class Settings {
         /** @hide */
         private static final Validator TOAST_ICON_VALIDATOR =
                 BOOLEAN_VALIDATOR;
+
+        /**
+         * Select from various styles to use on the QS tiles
+         *
+         * @hide
+         */
+        public static final String QS_TILE_STYLE = "qs_tile_style";
 
         /**
          * Show four g instead of LTE
@@ -4899,6 +4914,39 @@ public final class Settings {
         private static final Validator ANIM_TILE_INTERPOLATOR_VALIDATOR =
                 ANY_INTEGER_VALIDATOR;
 
+         /**
+         * Whether to show the notification ticker on the status bar
+         * @hide
+         */
+        public static final String STATUS_BAR_SHOW_TICKER = "status_bar_show_ticker";
+
+         /** @hide */
+        private static final Validator STATUS_BAR_SHOW_TICKER_VALIDATOR = BOOLEAN_VALIDATOR;
+
+         /**
+         * Ticker animation
+         * 0: Fade animation
+         * 1: Scrolling ticker
+         */
+        public static final String STATUS_BAR_TICKER_ANIMATION_MODE =
+                "status_bar_ticker_animation_mode";
+
+         /** @hide */
+        private static final Validator STATUS_BAR_TICKER_ANIMATION_MODE_VALIDATOR =
+                ANY_INTEGER_VALIDATOR;
+
+         /**
+         * Status bar ticker duration in milliseconds.
+         *
+         * @hide
+         */
+        public static final String STATUS_BAR_TICKER_TICK_DURATION =
+                "status_bar_ticker_tick_duration";
+
+         /** @hide */
+        private static final Validator STATUS_BAR_TICKER_TICK_DURATION_VALIDATOR =
+                ANY_INTEGER_VALIDATOR;
+
         /**
          * whether to enable or disable vibration on succesful fingerprint auth
          *
@@ -5090,6 +5138,18 @@ public final class Settings {
          /** @hide */
         public static final Validator INCREASING_RING_RAMP_UP_TIME_VALIDATOR =
                 ANY_STRING_VALIDATOR;
+
+        /**
+         * Whether to launch default music player when headset plugged in
+         * 0 = don't do anything (default)
+         * 1 = launch only on wired connection
+         * 2 = launch only on bt connection but no carkit
+         * 3 = launch only on bt connection
+         * 4 = launch on both connection types but no carkit
+         * 5 = launch on both connection types
+         * @hide
+         */
+        public static final String HEADSET_CONNECT_PLAYER = "headset_connect_player";
 
         /**
          * Whether the phone vibrates on call connect
@@ -5295,6 +5355,7 @@ public final class Settings {
             BATTERY_LIGHT_REALLYFULL_COLOR,
             BOTTOM_GESTURE_TRIGGER_TIMEOUT,
             BOTTOM_GESTURE_SWIPE_LIMIT,
+            BOTTOM_GESTURE_FEEDBACK_DURATION,
             CUSTOM_CARRIER_LABEL,
             DOUBLE_TAP_SLEEP_GESTURE,
             DOUBLE_TAP_SLEEP_ANYWHERE,
@@ -5352,6 +5413,9 @@ public final class Settings {
             STATUS_BAR_LOGO,
             STATUS_BAR_SHOW_CARRIER,
             STATUS_BAR_QUICK_QS_PULLDOWN,
+            STATUS_BAR_SHOW_TICKER,
+            STATUS_BAR_TICKER_ANIMATION_MODE,
+            STATUS_BAR_TICKER_TICK_DURATION,
             SWAP_VOLUME_BUTTONS,
             THREE_FINGER_GESTURE,
             TOAST_ICON,
@@ -5448,6 +5512,7 @@ public final class Settings {
             PUBLIC_SETTINGS.add(BATTERY_LIGHT_REALLYFULL_COLOR);
             PUBLIC_SETTINGS.add(BOTTOM_GESTURE_SWIPE_LIMIT);
             PUBLIC_SETTINGS.add(BOTTOM_GESTURE_TRIGGER_TIMEOUT);
+            PUBLIC_SETTINGS.add(BOTTOM_GESTURE_FEEDBACK_DURATION);
             PUBLIC_SETTINGS.add(CUSTOM_CARRIER_LABEL);
             PUBLIC_SETTINGS.add(DOUBLE_TAP_SLEEP_ANYWHERE);
             PUBLIC_SETTINGS.add(DOUBLE_TAP_SLEEP_GESTURE);
@@ -5506,6 +5571,9 @@ public final class Settings {
             PUBLIC_SETTINGS.add(STATUSBAR_HIDE_NOTCH);
             PUBLIC_SETTINGS.add(SWAP_VOLUME_BUTTONS);
             PUBLIC_SETTINGS.add(TOAST_ICON);
+            PUBLIC_SETTINGS.add(STATUS_BAR_SHOW_TICKER);
+            PUBLIC_SETTINGS.add(STATUS_BAR_TICKER_ANIMATION_MODE);
+            PUBLIC_SETTINGS.add(STATUS_BAR_TICKER_TICK_DURATION);
             PUBLIC_SETTINGS.add(THREE_FINGER_GESTURE);
             PUBLIC_SETTINGS.add(USE_BLACKAF_THEME);
             PUBLIC_SETTINGS.add(USE_BOTTOM_GESTURE_NAVIGATION);
@@ -5574,7 +5642,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(SHOW_BATTERY_PERCENT);
             PRIVATE_SETTINGS.add(DISPLAY_COLOR_MODE);
             PRIVATE_SETTINGS.add(DOZE_ON_CHARGE);
-
+            PRIVATE_SETTINGS.add(HEADSET_CONNECT_PLAYER);
             // Pocket mode handler.
             PRIVATE_SETTINGS.add(POCKET_JUDGE);
         }
@@ -5681,6 +5749,7 @@ public final class Settings {
             VALIDATORS.put(BATTERY_LIGHT_REALLYFULL_COLOR, BATTERY_LIGHT_REALLYFULL_COLOR_VALIDATOR);
             VALIDATORS.put(BOTTOM_GESTURE_TRIGGER_TIMEOUT, BOTTOM_GESTURE_TRIGGER_TIMEOUT_VALIDATOR);
             VALIDATORS.put(BOTTOM_GESTURE_SWIPE_LIMIT, BOTTOM_GESTURE_SWIPE_LIMIT_VALIDATOR);
+            VALIDATORS.put(BOTTOM_GESTURE_FEEDBACK_DURATION, BOTTOM_GESTURE_FEEDBACK_DURATION_VALIDATOR);
             VALIDATORS.put(CUSTOM_CARRIER_LABEL, CUSTOM_CARRIER_LABEL_VALIDATOR);
             VALIDATORS.put(DOUBLE_TAP_SLEEP_GESTURE, DOUBLE_TAP_SLEEP_GESTURE_VALIDATOR);
             VALIDATORS.put(DOUBLE_TAP_SLEEP_ANYWHERE, DOUBLE_TAP_SLEEP_ANYWHERE_VALIDATOR);
@@ -5730,6 +5799,9 @@ public final class Settings {
             VALIDATORS.put(STATUS_BAR_SHOW_CARRIER, STATUS_BAR_SHOW_CARRIER_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_CLOCK, STATUS_BAR_CLOCK_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_CLOCK_SECONDS, STATUS_BAR_CLOCK_SECONDS_VALIDATOR);
+            VALIDATORS.put(STATUS_BAR_SHOW_TICKER, STATUS_BAR_SHOW_TICKER_VALIDATOR);
+            VALIDATORS.put(STATUS_BAR_TICKER_ANIMATION_MODE, STATUS_BAR_TICKER_ANIMATION_MODE_VALIDATOR);
+            VALIDATORS.put(STATUS_BAR_TICKER_TICK_DURATION, STATUS_BAR_TICKER_TICK_DURATION_VALIDATOR);
             VALIDATORS.put(STATUSBAR_CLOCK_AM_PM_STYLE, STATUSBAR_CLOCK_AM_PM_STYLE_VALIDATOR);
             VALIDATORS.put(STATUSBAR_CLOCK_DATE_DISPLAY, STATUSBAR_CLOCK_DATE_DISPLAY_VALIDATOR);
             VALIDATORS.put(STATUSBAR_CLOCK_DATE_STYLE, STATUSBAR_CLOCK_DATE_STYLE_VALIDATOR);

@@ -102,6 +102,19 @@ public class ThemeAccentUtils {
         "com.accents.usernine", // 30
     };
 
+    private static final String[] QS_TILE_THEMES = {
+        "default_qstile", // 0
+        "com.android.systemui.qstile.squircle", // 1
+        "com.android.systemui.qstile.teardrop", // 2
+        "com.android.systemui.qstile.deletround", // 3
+        "com.android.systemui.qstile.inktober", // 4
+        "com.android.systemui.qstile.shishunights", // 5
+        "com.android.systemui.qstile.circledualtone", // 6
+        "com.android.systemui.qstile.dottedcircle", // 7
+        "com.android.systemui.qstile.shishuink", // 8
+        "com.android.systemui.qstile.attemptmountain", // 9
+    };
+
     // Unloads the stock dark theme
     public static void unloadStockDarkTheme(IOverlayManager om, int userId) {
         OverlayInfo themeInfo = null;
@@ -261,5 +274,44 @@ public class ThemeAccentUtils {
                 e.printStackTrace();
             }
         }
+    }
+
+    // Switches qs tile style to user selected.
+    public static void updateTileStyle(IOverlayManager om, int userId, int qsTileStyle) {
+        if (qsTileStyle == 0) {
+            unlockQsTileStyles(om, userId);
+        } else {
+            try {
+                om.setEnabled(QS_TILE_THEMES[qsTileStyle],
+                        true, userId);
+            } catch (RemoteException e) {
+            }
+        }
+    }
+
+    // Unload all the qs tile styles
+    public static void unlockQsTileStyles(IOverlayManager om, int userId) {
+        // skip index 0
+        for (int i = 1; i < QS_TILE_THEMES.length; i++) {
+            String qstiletheme = QS_TILE_THEMES[i];
+            try {
+                om.setEnabled(qstiletheme,
+                        false /*disable*/, userId);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // Check for any QS tile styles overlay
+    public static boolean isUsingQsTileStyles(IOverlayManager om, int userId, int qsstyle) {
+        OverlayInfo themeInfo = null;
+        try {
+            themeInfo = om.getOverlayInfo(QS_TILE_THEMES[qsstyle],
+                    userId);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return themeInfo != null && themeInfo.isEnabled();
     }
 }

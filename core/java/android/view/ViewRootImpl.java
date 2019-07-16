@@ -177,6 +177,9 @@ public final class ViewRootImpl implements ViewParent,
     public static final String PROPERTY_EMULATOR_WIN_OUTSET_BOTTOM_PX =
             "ro.emu.win_outset_bottom_px";
 
+    private final int mSwipeStartThreshold =
+                    SystemProperties.getInt("ro.bottom_gesture.swipe_start.threshold", 20);
+
     /**
      * Maximum time we allow the user to roll the trackball enough to generate
      * a key event, before resetting the counters.
@@ -5145,15 +5148,12 @@ public final class ViewRootImpl implements ViewParent,
 
             IWindowManager wm = WindowManagerGlobal.getWindowManagerService();
             boolean isGestureButtonEnabled = false;
-            boolean isKeyguardOn = false;
             try {
                 isGestureButtonEnabled = wm.isGestureButtonEnabled();
-                isKeyguardOn = wm.isKeyguardShowingAndNotOccluded();
             } catch (RemoteException ex) {
                 isGestureButtonEnabled = false;
-                isKeyguardOn = false;
             }
-            if (isGestureButtonEnabled && !isKeyguardOn) {
+            if (isGestureButtonEnabled) {
                 if (event.getPointerCount() == 1) {
                     action = event.getActionMasked();
                     rotation = 0;
@@ -5176,10 +5176,10 @@ public final class ViewRootImpl implements ViewParent,
                                 raw = event.getRawY();
                             }
                             if (rotation == 0 || rotation == 1) {
-                                mGestureButtonZone = mScreenHeight - 20;
+                                mGestureButtonZone = mScreenHeight - mSwipeStartThreshold;
                                 hit = raw > ((float) mGestureButtonZone);
                             } else {
-                                mGestureButtonZone = 20;
+                                mGestureButtonZone = mSwipeStartThreshold;
                                 hit = raw < ((float) mGestureButtonZone);
                             }
                             if (hit) {
