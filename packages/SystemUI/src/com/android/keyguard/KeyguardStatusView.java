@@ -588,7 +588,34 @@ public class KeyguardStatusView extends GridLayout implements
             mClockView.setTypeface(Typeface.create("slate-condensed", Typeface.BOLD));
             mTextClock.setTypeface(Typeface.create("slate-condensed", Typeface.BOLD));
         }
-
+        if (lockClockFont == 27) {
+            mClockView.setTypeface(Typeface.create("sam-one", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("sam-one", Typeface.NORMAL));
+        }
+        if (lockClockFont == 28) {
+            mClockView.setTypeface(Typeface.create("sam-one-medium", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("sam-one-medium", Typeface.NORMAL));
+        }
+        if (lockClockFont == 29) {
+            mClockView.setTypeface(Typeface.create("sam-one", Typeface.BOLD));
+            mTextClock.setTypeface(Typeface.create("sam-one", Typeface.BOLD));
+        }
+        if (lockClockFont == 30) {
+            mClockView.setTypeface(Typeface.create("ubuntu", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("ubuntu", Typeface.NORMAL));
+        }
+        if (lockClockFont == 31) {
+            mClockView.setTypeface(Typeface.create("ubuntu-medium", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("ubuntu-medium", Typeface.NORMAL));
+        }
+        if (lockClockFont == 32) {
+            mClockView.setTypeface(Typeface.create("ubuntu", Typeface.BOLD));
+            mTextClock.setTypeface(Typeface.create("ubuntu", Typeface.BOLD));
+        }
+        if (lockClockFont == 33) {
+            mClockView.setTypeface(Typeface.create("ubuntu-condensed", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("ubuntu-condensed", Typeface.NORMAL));
+        }
         //Lockscreen date
         if (lockDateFont == 0) {
             mKeyguardSlice.setViewsTypeface(Typeface.create("roboto", Typeface.NORMAL));
@@ -670,6 +697,27 @@ public class KeyguardStatusView extends GridLayout implements
         }
         if (lockDateFont == 26) {
             mKeyguardSlice.setViewsTypeface(Typeface.create("slate-condensed", Typeface.BOLD));
+        }
+        if (lockDateFont == 27) {
+            mKeyguardSlice.setViewsTypeface(Typeface.create("sam-one", Typeface.NORMAL));
+        }
+        if (lockDateFont == 28) {
+            mKeyguardSlice.setViewsTypeface(Typeface.create("sam-one-medium", Typeface.NORMAL));
+        }
+        if (lockDateFont == 29) {
+            mKeyguardSlice.setViewsTypeface(Typeface.create("sam-one", Typeface.BOLD));
+        }
+        if (lockDateFont == 30) {
+            mKeyguardSlice.setViewsTypeface(Typeface.create("ubuntu", Typeface.NORMAL));
+        }
+        if (lockDateFont == 31) {
+            mKeyguardSlice.setViewsTypeface(Typeface.create("ubuntu-medium", Typeface.NORMAL));
+        }
+        if (lockDateFont == 32) {
+            mKeyguardSlice.setViewsTypeface(Typeface.create("ubuntu", Typeface.BOLD));
+        }
+        if (lockDateFont == 33) {
+            mKeyguardSlice.setViewsTypeface(Typeface.create("ubuntu-condensed", Typeface.NORMAL));
         }
     }
 
