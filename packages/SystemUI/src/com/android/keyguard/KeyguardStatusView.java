@@ -620,18 +620,22 @@ public class KeyguardStatusView extends GridLayout implements
             mTextClock.setTypeface(Typeface.create("sam-one", Typeface.BOLD));
         }
         if (lockClockFont == 30) {
+            mClockView.setTypeface(Typeface.create("sam-one-condensed", Typeface.NORMAL));
+            mTextClock.setTypeface(Typeface.create("sam-one-condensed", Typeface.NORMAL));
+        }
+        if (lockClockFont == 31) {
             mClockView.setTypeface(Typeface.create("ubuntu", Typeface.NORMAL));
             mTextClock.setTypeface(Typeface.create("ubuntu", Typeface.NORMAL));
         }
-        if (lockClockFont == 31) {
+        if (lockClockFont == 32) {
             mClockView.setTypeface(Typeface.create("ubuntu-medium", Typeface.NORMAL));
             mTextClock.setTypeface(Typeface.create("ubuntu-medium", Typeface.NORMAL));
         }
-        if (lockClockFont == 32) {
+        if (lockClockFont == 33) {
             mClockView.setTypeface(Typeface.create("ubuntu", Typeface.BOLD));
             mTextClock.setTypeface(Typeface.create("ubuntu", Typeface.BOLD));
         }
-        if (lockClockFont == 33) {
+        if (lockClockFont == 34) {
             mClockView.setTypeface(Typeface.create("ubuntu-condensed", Typeface.NORMAL));
             mTextClock.setTypeface(Typeface.create("ubuntu-condensed", Typeface.NORMAL));
         }
@@ -727,15 +731,18 @@ public class KeyguardStatusView extends GridLayout implements
             mKeyguardSlice.setViewsTypeface(Typeface.create("sam-one", Typeface.BOLD));
         }
         if (lockDateFont == 30) {
-            mKeyguardSlice.setViewsTypeface(Typeface.create("ubuntu", Typeface.NORMAL));
+            mKeyguardSlice.setViewsTypeface(Typeface.create("sam-one-condensed", Typeface.NORMAL));
         }
         if (lockDateFont == 31) {
-            mKeyguardSlice.setViewsTypeface(Typeface.create("ubuntu-medium", Typeface.NORMAL));
+            mKeyguardSlice.setViewsTypeface(Typeface.create("ubuntu", Typeface.NORMAL));
         }
         if (lockDateFont == 32) {
-            mKeyguardSlice.setViewsTypeface(Typeface.create("ubuntu", Typeface.BOLD));
+            mKeyguardSlice.setViewsTypeface(Typeface.create("ubuntu-medium", Typeface.NORMAL));
         }
         if (lockDateFont == 33) {
+            mKeyguardSlice.setViewsTypeface(Typeface.create("ubuntu", Typeface.BOLD));
+        }
+        if (lockDateFont == 34) {
             mKeyguardSlice.setViewsTypeface(Typeface.create("ubuntu-condensed", Typeface.NORMAL));
         }
     }
