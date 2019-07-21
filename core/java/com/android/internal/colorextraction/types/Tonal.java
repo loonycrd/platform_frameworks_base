@@ -261,7 +261,7 @@ public class Tonal implements ExtractionType {
         }
         return palette;
     }
-    
+
     private int[] getColorPalette(TonalPalette tonalPalette) {
         return getColorPalette(tonalPalette.h, tonalPalette.s, tonalPalette.l);
     }

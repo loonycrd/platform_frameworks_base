@@ -58,7 +58,7 @@ public class TypographicClock extends TextView implements ColorExtractor.OnColor
             }
         }
     };
-    
+
     public TypographicClock(Context context) {
         this(context, null);
     }
