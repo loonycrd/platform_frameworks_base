@@ -2390,6 +2390,7 @@ public final class Settings {
         /** @hide */
         public static String getStringForUser(ContentResolver resolver, String name,
                 int userHandle) {
+            android.util.SeempLog.record(android.util.SeempLog.getSeempGetApiIdFromValue(name));
             if (MOVED_TO_SECURE.contains(name)) {
                 Log.w(TAG, "Setting " + name + " has moved from android.provider.Settings.System"
                         + " to android.provider.Settings.Secure, returning read-only value.");
@@ -2417,6 +2418,7 @@ public final class Settings {
         /** @hide */
         public static boolean putStringForUser(ContentResolver resolver, String name, String value,
                 int userHandle) {
+            android.util.SeempLog.record(android.util.SeempLog.getSeempPutApiIdFromValue(name));
             if (MOVED_TO_SECURE.contains(name)) {
                 Log.w(TAG, "Setting " + name + " has moved from android.provider.Settings.System"
                         + " to android.provider.Settings.Secure, value is unchanged.");
@@ -4467,6 +4469,15 @@ public final class Settings {
         private static final Validator BOTTOM_GESTURE_FEEDBACK_DURATION_VALIDATOR = ANY_INTEGER_VALIDATOR;
 
         /**
+         * @hide
+         */
+        public static final String BOTTOM_GESTURE_SWIPE_START =
+                "bottom_gesture_navigation_swipe_start";
+
+        private static final Validator BOTTOM_GESTURE_SWIPE_START_VALIDATOR =
+                ANY_INTEGER_VALIDATOR;
+
+        /**
          * Whether to hide the lockscreen clock
          * @hide
          */
@@ -5039,6 +5050,16 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
+         * Enable face auto unlock on secure lock screens
+         *
+         * @hide
+         */
+        public static final String DISPLAY_MODE = "display_mode";
+
+        private static final Validator DISPLAY_MODE_VALIDATOR =
+                ANY_INTEGER_VALIDATOR;
+
+        /**
          * Whether to use icon pack for Recents
          * @hide
          */
@@ -5387,8 +5408,10 @@ public final class Settings {
             BATTERY_LIGHT_REALLYFULL_COLOR,
             BOTTOM_GESTURE_TRIGGER_TIMEOUT,
             BOTTOM_GESTURE_SWIPE_LIMIT,
+            BOTTOM_GESTURE_SWIPE_START,
             BOTTOM_GESTURE_FEEDBACK_DURATION,
             CUSTOM_CARRIER_LABEL,
+            DISPLAY_MODE,
             DOUBLE_TAP_SLEEP_GESTURE,
             DOUBLE_TAP_SLEEP_ANYWHERE,
             FINGERPRINT_SUCCESS_VIB,
@@ -5543,6 +5566,7 @@ public final class Settings {
             PUBLIC_SETTINGS.add(BATTERY_LIGHT_FULL_COLOR);
             PUBLIC_SETTINGS.add(BATTERY_LIGHT_REALLYFULL_COLOR);
             PUBLIC_SETTINGS.add(BOTTOM_GESTURE_SWIPE_LIMIT);
+            PUBLIC_SETTINGS.add(BOTTOM_GESTURE_SWIPE_START);
             PUBLIC_SETTINGS.add(BOTTOM_GESTURE_TRIGGER_TIMEOUT);
             PUBLIC_SETTINGS.add(BOTTOM_GESTURE_FEEDBACK_DURATION);
             PUBLIC_SETTINGS.add(CUSTOM_CARRIER_LABEL);
@@ -5677,6 +5701,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(HEADSET_CONNECT_PLAYER);
             // Pocket mode handler.
             PRIVATE_SETTINGS.add(POCKET_JUDGE);
+            PRIVATE_SETTINGS.add(DISPLAY_MODE);
         }
 
         /**
@@ -5780,6 +5805,7 @@ public final class Settings {
             VALIDATORS.put(BATTERY_LIGHT_FULL_COLOR, BATTERY_LIGHT_FULL_COLOR_VALIDATOR);
             VALIDATORS.put(BATTERY_LIGHT_REALLYFULL_COLOR, BATTERY_LIGHT_REALLYFULL_COLOR_VALIDATOR);
             VALIDATORS.put(BOTTOM_GESTURE_TRIGGER_TIMEOUT, BOTTOM_GESTURE_TRIGGER_TIMEOUT_VALIDATOR);
+            VALIDATORS.put(BOTTOM_GESTURE_SWIPE_START, BOTTOM_GESTURE_SWIPE_START_VALIDATOR);
             VALIDATORS.put(BOTTOM_GESTURE_SWIPE_LIMIT, BOTTOM_GESTURE_SWIPE_LIMIT_VALIDATOR);
             VALIDATORS.put(BOTTOM_GESTURE_FEEDBACK_DURATION, BOTTOM_GESTURE_FEEDBACK_DURATION_VALIDATOR);
             VALIDATORS.put(CUSTOM_CARRIER_LABEL, CUSTOM_CARRIER_LABEL_VALIDATOR);
@@ -5860,6 +5886,7 @@ public final class Settings {
             VALIDATORS.put(NOTIFICATION_LIGHT_PULSE, BOOLEAN_VALIDATOR);
             VALIDATORS.put(DOZE_ON_CHARGE, DOZE_ON_CHARGE_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_LOGO, STATUS_BAR_LOGO_VALIDATOR);
+            VALIDATORS.put(DISPLAY_MODE, DISPLAY_MODE_VALIDATOR);
         }
 
         /**
