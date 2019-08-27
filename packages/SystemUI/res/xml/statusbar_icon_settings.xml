@@ -85,5 +85,5 @@
         <com.android.systemui.tuner.TunerSwitch
             android:key="hide_disabled_sim"
             android:title="@string/tuner_hide_disabled_sim"
-            sysui:defValue="false" />
+            sysui:defValue="true" />
 </PreferenceScreen>
