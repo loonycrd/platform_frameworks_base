@@ -4645,8 +4645,7 @@ public final class Settings {
          * 2 - OnePlus
          * 3 - Narrow
          * 4 - Contained
-         * 5 - Retro
-         * 6 - Stockish
+         * 5 - Stockish
          * @hide
          */
         public static final String SWITCH_STYLER = "switch_styler";
