@@ -5710,6 +5710,8 @@ public final class Settings {
             PRIVATE_SETTINGS.add(DISPLAY_COLOR_MODE);
             PRIVATE_SETTINGS.add(DOZE_ON_CHARGE);
             PRIVATE_SETTINGS.add(HEADSET_CONNECT_PLAYER);
+            PRIVATE_SETTINGS.add(THEME_MODE_AUTOMATIC_START_TIME);
+            PRIVATE_SETTINGS.add(THEME_MODE_AUTOMATIC_END_TIME);
             // Pocket mode handler.
             PRIVATE_SETTINGS.add(POCKET_JUDGE);
             PRIVATE_SETTINGS.add(DISPLAY_MODE);
@@ -5897,6 +5899,8 @@ public final class Settings {
             VALIDATORS.put(DOZE_ON_CHARGE, DOZE_ON_CHARGE_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_LOGO, STATUS_BAR_LOGO_VALIDATOR);
             VALIDATORS.put(DISPLAY_MODE, DISPLAY_MODE_VALIDATOR);
+            VALIDATORS.put(THEME_MODE_AUTOMATIC_START_TIME, THEME_MODE_AUTOMATIC_START_TIME_VALIDATOR);
+            VALIDATORS.put(THEME_MODE_AUTOMATIC_END_TIME, THEME_MODE_AUTOMATIC_END_TIME_VALIDATOR);
         }
 
         /**
@@ -8695,6 +8699,12 @@ public final class Settings {
         public static final int THEME_MODE_DARK = 2;
 
         /**
+         * THEME_MODE value for time mode.
+         * @hide
+         */
+        public static final int THEME_MODE_TIME = 3;
+
+        /**
          * Whether screensavers are enabled.
          * @hide
          */
@@ -9254,6 +9264,28 @@ public final class Settings {
          * @hide
          */
         public static final String FACE_AUTO_UNLOCK = "face_auto_unlock";
+
+        /**
+         * Start time of automatic system theme
+         *
+         * @hide
+         */
+        public static final String THEME_MODE_AUTOMATIC_START_TIME = "theme_mode_automatic_start_time";
+
+        /** @hide */
+        private static final Validator THEME_MODE_AUTOMATIC_START_TIME_VALIDATOR =
+                NON_NEGATIVE_INTEGER_VALIDATOR;
+
+        /**
+         * End time of automatic system theme
+         *
+         * @hide
+         */
+        public static final String THEME_MODE_AUTOMATIC_END_TIME = "theme_mode_automatic_end_time";
+
+        /** @hide */
+        private static final Validator THEME_MODE_AUTOMATIC_END_TIME_VALIDATOR =
+                NON_NEGATIVE_INTEGER_VALIDATOR;
 
         /**
          * Whether or not the automatic storage manager is enabled and should run on the device.
