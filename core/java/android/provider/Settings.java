@@ -5111,6 +5111,18 @@ public final class Settings {
         public static final String CUSTOM_AMBIENT_POCKETMODE_GESTURE = "custom_ambient_pocketmode_gesture";
 
         /**
+         * Battery Estimate
+         * @hide
+         */
+        public static final String SHOW_BATTERY_ESTIMATE = "show_battery_estimate";
+
+        /**
+         * Battery Estimate Position
+         * @hide
+         */
+        public static final String BATTERY_ESTIMATE_POSITION = "battery_estimate_position";
+
+        /**
          * Whether to enable gaming mode or not
          *
          * @hide
@@ -9922,6 +9934,16 @@ public final class Settings {
         /** @hide */
         private static final Validator VOLUME_LINK_NOTIFICATION_VALIDATOR =
                 BOOLEAN_VALIDATOR;
+
+        /**
+         * Whether tethering is allowed to use VPN upstreams
+         * 0 = false, 1 = true
+         * @hide
+         */
+        public static final String TETHERING_ALLOW_VPN_UPSTREAMS = "tethering_allow_vpn_upstreams";
+
+        /** @hide */
+        public static final Validator TETHERING_ALLOW_VPN_UPSTREAMS_VALIDATOR = BOOLEAN_VALIDATOR;
 
         /**
          * This are the settings to be backed up.
