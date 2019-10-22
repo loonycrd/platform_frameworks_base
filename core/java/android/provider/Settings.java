@@ -4345,16 +4345,6 @@ public final class Settings {
         private static final Validator POWERMENU_AIRPLANE_VALIDATOR =
                 BOOLEAN_VALIDATOR;
 
-        /**
-         * Weather lockscreen temperature scale
-         * @hide
-         */
-        public static final String WEATHER_LOCKSCREEN_UNIT = "weather_lockscreen_unit";
-
-        /** @hide */
-        private static final Validator WEATHER_LOCKSCREEN_UNIT_VALIDATOR =
-               BOOLEAN_VALIDATOR;
-
          /**
          * Show or hide clock
          * 0 - hide
@@ -5356,13 +5346,6 @@ public final class Settings {
         public static final String FP_UNLOCK_KEYSTORE = "fp_unlock_keystore";
 
         /**
-         * Whether to show weather on lockscreen
-         * @hide
-         */
-        public static final String WEATHER_LOCKSCREEN_ENABLED = "weather_lockscreen_enabled";
-
-
-        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5513,7 +5496,6 @@ public final class Settings {
             VOLUME_KEY_CURSOR_CONTROL,
             VOLUME_ROCKER_WAKE,
             WAKE_WHEN_PLUGGED_OR_UNPLUGGED,
-            WEATHER_LOCKSCREEN_UNIT,
             DOZE_ON_CHARGE
         };
 
@@ -5678,7 +5660,6 @@ public final class Settings {
             PUBLIC_SETTINGS.add(BUTTON_BACKLIGHT_TIMEOUT);
             PUBLIC_SETTINGS.add(BUTTON_BACKLIGHT_ON_TOUCH_ONLY);
             PUBLIC_SETTINGS.add(STATUS_BAR_LOGO);
-            PUBLIC_SETTINGS.add(WEATHER_LOCKSCREEN_UNIT);
         }
 
         /**
@@ -5915,7 +5896,6 @@ public final class Settings {
             VALIDATORS.put(NOTIFICATION_LIGHT_PULSE, BOOLEAN_VALIDATOR);
             VALIDATORS.put(DOZE_ON_CHARGE, DOZE_ON_CHARGE_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_LOGO, STATUS_BAR_LOGO_VALIDATOR);
-            VALIDATORS.put(WEATHER_LOCKSCREEN_UNIT, WEATHER_LOCKSCREEN_UNIT_VALIDATOR);
             VALIDATORS.put(DISPLAY_MODE, DISPLAY_MODE_VALIDATOR);
         }
 
